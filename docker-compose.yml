@@ -35,8 +35,8 @@ services:
     depends_on:
       - mongodb
     environment:
-      - ME_CONFIG_MONGODB_URL=mongodb://mern-mongodb_1:27017
-      - ME_CONFIG_MONGODB_SERVER=mern-mongodb_1
+      - ME_CONFIG_MONGODB_URL=mongodb://mongodb_1:27017
+      - ME_CONFIG_MONGODB_SERVER=mongodb_1
       - ME_CONFIG_MONGODB_PORT=27017
     networks:
       - express-mongo
