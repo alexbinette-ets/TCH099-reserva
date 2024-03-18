@@ -10,7 +10,7 @@ exports.connect = (app) => {
     mongoose.Promise = global.Promise;
     console.log("MongoDB connection with retry");
     mongoose
-      .connect("mongodb://mern-mongodb-1:27017", options)
+      .connect("mongodb://mern-mongodb_1:27017", options)
       .then(() => {
         console.log("MongoDB is connected");
         app.emit("ready");

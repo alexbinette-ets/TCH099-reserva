@@ -2,6 +2,7 @@ version: '3'
 
 services:
   mongodb:
+    container_name: mongodb_1
     build:
       context: mongo
     volumes:
@@ -14,6 +15,7 @@ services:
       - 27017
 
   express:
+    container_name: express_1
     build:
       context: express
     ports:
@@ -26,14 +28,15 @@ services:
       - 5000
 
   mongo-express:
+    container_name: mongo-express_1
     image: mongo-express
     ports:
       - "8081:8081"
     depends_on:
       - mongodb
     environment:
-      - ME_CONFIG_MONGODB_URL=mongodb://mern-mongodb-1:27017
-      - ME_CONFIG_MONGODB_SERVER=mern-mongodb-1
+      - ME_CONFIG_MONGODB_URL=mongodb://mern-mongodb_1:27017
+      - ME_CONFIG_MONGODB_SERVER=mern-mongodb_1
       - ME_CONFIG_MONGODB_PORT=27017
     networks:
       - express-mongo
