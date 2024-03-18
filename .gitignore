@@ -1,0 +1,2 @@
+# Exclue le fichier de node_modules dans les sous-dossiers
+*/node_modules/
