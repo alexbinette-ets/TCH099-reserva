@@ -31,3 +31,6 @@ run().catch(console.dir);
 app.listen(5000, function () {
  console.log("Express écoute sur le port 5000!");
 });
+app.get('/', function(req, res) {
+  res.send('hello world');
+});

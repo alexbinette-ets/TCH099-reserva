@@ -40,6 +40,20 @@ services:
       - ME_CONFIG_MONGODB_PORT=27017
     networks:
       - express-mongo
+
+  react:
+    container_name: react_1
+    build:
+      context: react-app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - express
+    networks:
+      - express-mongo
+    expose:
+      - 3000
+
 volumes:
   mongodb-data:
 networks:
