@@ -1,0 +1,124 @@
+const express = require('express');
+const router = express.Router();
+const { MongoClient } = require('mongodb');
+//?ligne qui donne erreur const fetch = require('node-fetch');
+
+
+//GET infos date du jour
+router.get('/date', (req, res) => {
+  const dateActuelle = new Date();
+  //Les mois commencent à 0
+  const numMois = dateActuelle.getMonth() + 1;
+  const annee = dateActuelle.getFullYear();
+
+  //mois en string
+  const options = { month: 'long' };
+  const nomMois = dateActuelle.toLocaleDateString('fr-FR', options);
+  const infosDateActuelleJSON =
+  {
+    numMois,
+    annee,
+    nomMois
+  }
+  res.json(infosDateActuelleJSON);
+});
+
+
+//GET calendrier
+router.get('/calendrier', async (req, res) => {
+  try {
+    const response = await fetch('http://localhost:5000/api/employe/date');
+    const data = await response.json();
+    const { numMois, annee, nomMois } = data;
+
+    //calcul nb jours
+    let nbJours;
+    if (numMois === 2) {
+      nbJours = (annee % 4 === 0 && (annee % 100 !== 0 || annee % 400 === 0)) ? 29 : 28;
+    } else if (['1', '3', '5', '7', '8', '10', '12'].includes(numMois)) {
+      nbJours = 31;
+    } else {
+      nbJours = 30;
+    }
+    const infosDateCalendrierJSON = {
+      numMois,
+      annee,
+      nomMois,
+      nbJours
+    }
+    res.json(infosDateCalendrierJSON);
+  }
+  catch (erreur) {
+    console.error(erreur);
+    res.status(500).json({ mssg: "Erreur récupération données" });
+  }
+});
+
+
+//GET liste reservation de la journee
+router.get('/dayreservations/:annee/:numMois/:jour', async (req, res) => {
+  const annee = parseInt(req.params.annee);
+  const numMois = parseInt(req.params.numMois);
+  const jour = parseInt(req.params.jour);
+
+
+
+
+  const dateString = `${annee.toString()}-${numMois.toString().padStart(2, '0')}-${jour.toString().padStart(2, '0')}`;
+  
+  try {
+  const collectionDisponibilite = req.app.locals.db.collection("Disponibilite");
+  const collectionReservation = req.app.locals.db.collection("Reservation");
+  const collectionTable = req.app.locals.db.collection("Table");
+
+
+  const reservationsDuJour = [];
+
+  const disponibilites = await collectionDisponibilite.find({
+    date: dateString,
+  }).toArray();
+
+  if (disponibilites.length === 0) {
+    return res.status(404).json({ message: "Aucune disponibilité trouvée pour la date spécifiée" });
+  }
+
+  for (const disponibilite of disponibilites) {
+    const { _id, date, heure_debut, heure_fin } = disponibilite;
+
+    const reservation = await collectionReservation.findOne({
+      disponibilite_id: disponibilite._id
+    });
+
+    const {num_reservation, nb_sieges, specification} = reservation;
+
+    const table = await collectionTable.findOne({
+      disponibilite_id: disponibilite._id
+    });
+
+    const {numero_table, section, nb_personne_max, nb_personne_min} = table;
+    
+  
+
+    reservationsDuJour.push({
+      date,
+      heure_debut,
+      heure_fin,
+      num_reservation,
+      numero_table,
+      nb_sieges,
+      specification,
+    });
+  }
+  res.json(reservationsDuJour);
+}
+catch (error) {
+console.error("Erreur lors de la requete get infos pour date:", error);
+res.status(500).json({ error: "Erreur lors de la requete get infos pour date" })};
+})
+
+//GET test
+router.get('/test', (req, res) => {
+  res.json({ mssg: 'Route de test fonctionnelleAYAY !' });
+});
+
+module.exports = router
