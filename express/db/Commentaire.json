@@ -1,0 +1,23 @@
+[
+    {
+        "_id":{"$oid":"65fa01f35b4102100d0fce14"},
+        "cote":3,
+        "commentaire":"La serveuse avait l'air bete..."
+    },
+    {   "_id":{"$oid":"65fa02055b4102100d0fce16"},
+        "cote":5,
+        "commentaire":"Excellent service, très attentionné !"
+    },
+    {
+        "_id":{"$oid":"65fa020f5b4102100d0fce18"},
+        "cote":2,"commentaire":"Service lent et désorganisé."
+    },
+    {   "_id":{"$oid":"65fa02195b4102100d0fce1a"},
+        "cote":4,"commentaire":"Serveur sympathique et efficace."
+    },
+    {
+        "_id":{"$oid":"65fa02255b4102100d0fce1c"},
+        "cote":1,
+        "commentaire":"Attente interminable, service médiocre."
+    }
+]

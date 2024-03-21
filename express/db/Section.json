@@ -1,0 +1,29 @@
+[
+    {
+        "_id":{"$oid":"65f9df0f5b4102100d0fcde6"},
+        "nom":"A","ouverture":true,
+        "nb_serveurs":2,
+        "type":"terrasse"
+    },
+    {
+        "_id":{"$oid":"65f9df255b4102100d0fcde8"},
+        "nom":"B",
+        "ouverture":false,
+        "nb_serveurs":3,
+        "type":"terrasse"
+    },
+    {
+        "_id":{"$oid":"65f9df3a5b4102100d0fcdea"},
+        "nom":"C",
+        "ouverture":true,
+        "nb_serveurs":5,
+        "type":"salle à manger"
+    },
+    {
+        "_id":{"$oid":"65f9df4c5b4102100d0fcdec"},
+        "nom":"D",
+        "ouverture":true,
+        "nb_serveurs":2,
+        "type":"salle à manger"
+    }
+]

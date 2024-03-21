@@ -1,0 +1,34 @@
+[
+    {
+        "_id":{"$oid":"65fa01695b4102100d0fce0a"},
+        "nom_client":"Mendez","prenom_client":"Miguel",
+        "telephone":"764-098-9873",
+        "email":"hyutu@gmail.com"
+    },
+    {
+        "_id":{"$oid":"65fa01805b4102100d0fce0c"},
+        "nom_client":"Dubois",
+        "prenom_client":"Marie",
+        "telephone":"621-345-6789",
+        "email":"marie.dubois@example.com"
+    },
+    {
+        "_id":{"$oid":"65fa01895b4102100d0fce0e"},
+        "nom_client":"Smith",
+        "prenom_client":"John","telephone":"555-123-4567",
+        "email":"john.smith@example.com"
+    },
+    {
+        "_id":{"$oid":"65fa01945b4102100d0fce10"},
+        "nom_client":"Garcia",
+        "prenom_client":"Sofia",
+        "telephone":"123-456-7890",
+        "email":"sofia.garcia@example.com"},
+    {
+        "_id":{"$oid":"65fa01a05b4102100d0fce12"},
+        "nom_client":"Chen",
+        "prenom_client":"Wei",
+        "telephone":"999-888-7777",
+        "email":"wei.chen@example.com"
+    }
+]

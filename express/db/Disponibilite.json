@@ -1,0 +1,22 @@
+[
+    {
+        "_id":{"$oid":"65f9f8745b4102100d0fce02"},
+        "timestamp_debut":"2024-03-19T10:30:00Z",
+        "timestamp_fin":"2024-03-19T11:30:00Z"
+    },
+    {   
+        "_id":{"$oid":"65f9f8925b4102100d0fce04"},
+        "timestamp_debut":"2024-03-19T12:00:00Z",
+        "timestamp_fin":"2024-03-19T13:30:00Z"
+    },
+    {
+        "_id":{"$oid":"65f9f89f5b4102100d0fce06"},
+        "timestamp_debut":"2024-03-19T14:00:00Z",
+        "timestamp_fin":"2024-03-19T15:30:00Z"
+    },
+    {
+        "_id":{"$oid":"65f9f8a95b4102100d0fce08"},
+        "timestamp_debut":"2024-03-19T17:00:00Z",
+        "timestamp_fin":"2024-03-19T18:30:00Z"
+    }
+]

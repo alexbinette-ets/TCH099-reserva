@@ -1,0 +1,144 @@
+[
+    {
+        "_id":{"$oid":"65f9d8b65b4102100d0fcd94"},
+        "nom_produit":"Pizza Margherita",
+        "allergenes":["Gluten","Lait"],
+        "epice":false,"prix":15
+    },
+    {
+        "_id":{"$oid":"65f9d9195b4102100d0fcd96"},
+        "nom_produit":"Pizza hawaienne",
+        "allergenes":null,
+        "epice":false,
+        "prix":18
+    },
+    {
+        "_id":{"$oid":"65f9d9dc5b4102100d0fcd98"},
+        "nom_produit":"Pâtes Carbonara",
+        "allergenes":["Gluten","Œuf","Lait","Porc"],
+        "epice":false,"prix":12
+    },
+    {
+        "_id":{"$oid":"65f9d9ee5b4102100d0fcd9a"},
+        "nom_produit":"Risotto aux champignons",
+        "allergenes":["Gluten"],
+        "epice":false,"prix":14
+    },
+    {
+        "_id":{"$oid":"65f9d9f95b4102100d0fcd9c"},
+        "nom_produit":"Bruschetta tomate et mozzarella",
+        "allergenes":["Gluten","Lait"],
+        "epice":false,
+        "prix":8
+    },
+    {
+        "_id":{"$oid":"65f9da095b4102100d0fcd9e"},
+        "nom_produit":"Salade Caprese",
+        "allergenes":["Lait"],
+        "epice":false,
+        "prix":10
+    },
+    {
+        "_id":{"$oid":"65f9da2a5b4102100d0fcda0"},
+        "nom_produit":"Osso Buco",
+        "allergenes":["Gluten","Céleri"],
+        "epice":false,
+        "prix":18
+    },
+    {
+        "_id":{"$oid":"65f9da585b4102100d0fcda2"},
+        "nom_produit":"Tiramisu",
+        "allergenes":["Gluten","Œuf","Lait"],
+        "epice":false,
+        "prix":7
+    },
+    {
+        "_id":{"$oid":"65f9da6a5b4102100d0fcda4"},
+        "nom_produit":"Cannoli Siciliani",
+        "allergenes":["Gluten","Lait"],
+        "epice":false,
+        "prix":9
+    },
+    {
+        "_id":{"$oid":"65f9da765b4102100d0fcda6"},
+        "nom_produit":"Gnocchi à la sauce tomate",
+        "allergenes":["Gluten"],
+        "epice":false,
+        "prix":11
+    },
+    {
+        "_id":{"$oid":"65f9da805b4102100d0fcda8"},
+        "nom_produit":"Pizza Quattro Stagioni",
+        "allergenes":["Gluten","Lait","Œuf","Porc"],
+        "epice":false,
+        "prix":17
+    },
+    {
+        "_id":{"$oid":"65f9da905b4102100d0fcdaa"},
+        "nom_produit":"Lasagnes Bolognaises",
+        "allergenes":["Gluten","Lait"],
+        "epice":false,
+        "prix":13
+    },
+    {
+        "_id":{"$oid":"65f9da9c5b4102100d0fcdac"},
+        "nom_produit":"Carpaccio de bœuf",
+        "allergenes":null,
+        "epice":false,
+        "prix":16
+    },
+    {
+        "_id":{"$oid":"65f9daa75b4102100d0fcdae"},
+        "nom_produit":"Minestrone",
+        "allergenes":null,
+        "epice":false,"prix":6
+    },
+    {
+        "_id":{"$oid":"65f9dab75b4102100d0fcdb0"},
+        "nom_produit":"Pizza Calzone",
+        "allergenes":["Gluten","Lait"],
+        "epice":false,
+        "prix":16
+    },
+    {
+        "_id":{"$oid":"65f9dace5b4102100d0fcdb2"},
+        "nom_produit":"Carpaccio de saumon",
+        "allergenes":null,
+        "epice":false,
+        "prix":14
+    },
+    {
+        "_id":{"$oid":"65f9dad95b4102100d0fcdb4"},
+        "nom_produit":"Pizza Quattro Formaggi",
+        "allergenes":["Gluten","Lait"],
+        "epice":false,
+        "prix":18
+    },
+    {
+        "_id":{"$oid":"65f9dae95b4102100d0fcdb6"},
+        "nom_produit":"Orecchiette alla pugliese",
+        "allergenes":["Gluten"],
+        "epice":false,
+        "prix":12
+    },
+    {
+        "_id":{"$oid":"65f9daf45b4102100d0fcdb8"},
+        "nom_produit":"Cannelloni au ricotta et épinards",
+        "allergenes":["Gluten","Lait"],
+        "epice":false,
+        "prix":14
+    },
+    {
+        "_id":{"$oid":"65f9db025b4102100d0fcdba"},
+        "nom_produit":"Panna cotta",
+        "allergenes":["Lait"],
+        "epice":false,"prix":8
+    },
+    {
+        "_id":{"$oid":"65f9db115b4102100d0fcdbc"},
+        "nom_produit":"Pizza Frutti di Mare",
+        "allergenes":["Gluten","Fruits de mer"],
+        "epice":false,
+        "prix":20
+    }
+]
