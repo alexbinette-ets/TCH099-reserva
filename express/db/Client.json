@@ -15,7 +15,8 @@
     {
         "_id":{"$oid":"65fa01895b4102100d0fce0e"},
         "nom_client":"Smith",
-        "prenom_client":"John","telephone":"555-123-4567",
+        "prenom_client":"John",
+        "telephone":"555-123-4567",
         "email":"john.smith@example.com"
     },
     {
@@ -30,5 +31,40 @@
         "prenom_client":"Wei",
         "telephone":"999-888-7777",
         "email":"wei.chen@example.com"
+    },
+    {
+        "_id":{"$oid":"65fa01b05b4102100d0fce14"},
+        "nom_client":"Lopez",
+        "prenom_client":"Carlos",
+        "telephone":"456-789-0123",
+        "email":"carlos.lopez@example.com"
+    },
+    {
+        "_id":{"$oid":"65fa01b15b4102100d0fce16"},
+        "nom_client":"Kowalski",
+        "prenom_client":"Anna",
+        "telephone":"987-654-3210",
+        "email":"anna.kowalski@example.com"
+    },
+    {
+        "_id":{"$oid":"65fa01b25b4102100d0fce18"},
+        "nom_client":"Nguyen",
+        "prenom_client":"Huong",
+        "telephone":"321-654-9870",
+        "email":"huong.nguyen@example.com"
+    },
+    {
+        "_id":{"$oid":"65fa01b35b4102100d0fce1a"},
+        "nom_client":"Kim",
+        "prenom_client":"Minho",
+        "telephone":"789-012-3456",
+        "email":"minho.kim@example.com"
+    },
+    {
+        "_id":{"$oid":"65fa01b45b4102100d0fce1c"},
+        "nom_client":"Gonzalez",
+        "prenom_client":"Alejandro",
+        "telephone":"012-345-6789",
+        "email":"alejandro.gonzalez@example.com"
     }
 ]

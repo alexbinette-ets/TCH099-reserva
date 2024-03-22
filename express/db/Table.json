@@ -4,69 +4,89 @@
         "numero_table":1,
         "nb_pers_min":2,
         "nb_pers_max":4,
-        "section_id":{"$oid":"65f9df0f5b4102100d0fcde6"}
+        "section_id":{"$oid":"65f9df0f5b4102100d0fcde6"},
+        "dispo1_id":{"$oid":"65f9f8a95b4102100d0fce09"},
+        "dispo2_id":{"$oid":"65f9f8a95b4102100d0fce0a"},
+        "dispo3_id":{"$oid":"65f9f8a95b4102100d0fce0b"},
+       "dispo4_id":{"$oid":"65f9f8a95b4102100d0fce0c"}
+    
     },
     {
         "_id":{"$oid":"65f9e04e5b4102100d0fcdf0"},
         "numero_table":2,
         "nb_pers_min":2,
         "nb_pers_max":4,
-        "section_id":{"$oid":"65f9df255b4102100d0fcde8"}
+        "section_id":{"$oid":"65f9df255b4102100d0fcde8"},
+        "dispo1_id":{"$oid":"65f9f8a95b4102100d0fce0d"},
+       "dispo2_id":{"$oid":"65f9f8a95b4102100d0fce0e"},
+        "dispo3_id":{"$oid":"65f9f8a95b4102100d0fce0f"},
+        "dispo4_id":{"$oid":"65f9f8a95b4102100d0fce10"}
     },
     {
         "_id":{"$oid":"65f9e0585b4102100d0fcdf2"},
         "numero_table":3,
         "nb_pers_min":4,
         "nb_pers_max":6,
-        "section_id":{"$oid":"65f9df3a5b4102100d0fcdea"}
+        "section_id":{"$oid":"65f9df3a5b4102100d0fcdea"},
+        "dispo1_id":{"$oid":"65f9f8a95b4102100d0fce11"},
+        "dispo2_id":{"$oid":"65f9f8a95b4102100d0fce12"}
     },
     {
         "_id":{"$oid":"65f9e0625b4102100d0fcdf4"},
         "numero_table":4,
         "nb_pers_min":4,
         "nb_pers_max":6,
-        "section_id":{"$oid":"65f9df4c5b4102100d0fcdec"}
+        "section_id":{"$oid":"65f9df4c5b4102100d0fcdec"},
+        "dispo1_id":{"$oid":"65f9f8a95b4102100d0fce13"}
     },
     {
         "_id":{"$oid":"65f9e06c5b4102100d0fcdf6"},
         "numero_table":5,
         "nb_pers_min":2,
         "nb_pers_max":4,
-        "section_id":{"$oid":"65f9df0f5b4102100d0fcde6"}
+        "section_id":{"$oid":"65f9df0f5b4102100d0fcde6"},
+        "dispo1_id":{"$oid":"65f9f8a95b4102100d0fce14"}
     },
     {
         "_id":{"$oid":"65f9e0785b4102100d0fcdf8"},
         "numero_table":6,
         "nb_pers_min":2,
         "nb_pers_max":4,
-        "section_id":{"$oid":"65f9df255b4102100d0fcde8"}
+        "section_id":{"$oid":"65f9df255b4102100d0fcde8"},
+        "dispo1_id":{"$oid":"65f9f8a95b4102100d0fce15"}
     },
     {
         "_id":{"$oid":"65f9e0835b4102100d0fcdfa"},
         "numero_table":7,
         "nb_pers_min":6,
         "nb_pers_max":8,
-        "section_id":{"$oid":"65f9df4c5b4102100d0fcdec"}
+        "section_id":{"$oid":"65f9df4c5b4102100d0fcdec"},
+        "dispo1_id":{"$oid":"65f9f8a95b4102100d0fce16"}
     },
     {
         "_id":{"$oid":"65f9e08d5b4102100d0fcdfc"},
         "numero_table":8,
         "nb_pers_min":6,
         "nb_pers_max":8,
-        "section_id":{"$oid":"65f9df3a5b4102100d0fcdea"}
+        "section_id":{"$oid":"65f9df3a5b4102100d0fcdea"},
+        "dispo1_id":{"$oid":"65f9f8a95b4102100d0fce17"},
+        "dispo2_id":{"$oid":"65f9f8a95b4102100d0fce18"}
     },
     {
         "_id":{"$oid":"65f9e0985b4102100d0fcdfe"},
         "numero_table":9,
         "nb_pers_min":4,
         "nb_pers_max":6,
-        "section_id":{"$oid":"65f9df255b4102100d0fcde8"}
+        "section_id":{"$oid":"65f9df255b4102100d0fcde8"},
+        "dispo1_id":{"$oid":"65f9f8a95b4102100d0fce19"}
     },
     {
         "_id":{"$oid":"65f9e0be5b4102100d0fce00"},
         "numero_table":10,
         "nb_pers_min":4,
         "nb_pers_max":6,
-        "section_id":{"$oid":"65f9df4c5b4102100d0fcdec"}
+        "section_id":{"$oid":"65f9df4c5b4102100d0fcdec"},
+        "dispo1_id":{"$oid":"65f9f8a95b4102100d0fce1a"},
+        "dispo2_id":{"$oid":"65f9f8a95b4102100d0fce1b"}
     }
 ]

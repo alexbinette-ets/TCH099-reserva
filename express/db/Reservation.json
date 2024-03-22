@@ -3,55 +3,71 @@
         "_id":{"$oid":"65f9ddc85b4102100d0fcdd2"},
         "numero_res":123,
         "nb_sieges":5,
-        "specification":"cote fenetre"
+        "specification":"cote fenetre",
+        "client_id":{"$oid":"65fa01695b4102100d0fce0a"}
     },
     {
         "_id":{"$oid":"65f9ddce5b4102100d0fcdd4"},
         "numero_res":124,
         "nb_sieges":2,
-        "specification":"table ronde"
+        "specification":"table ronde",
+        "_id":{"$oid":"65fa01805b4102100d0fce0c"}
     },
     {
         "_id":{"$oid":"65f9dde55b4102100d0fcdd6"},
         "numero_res":125,
         "nb_sieges":4,
-        "specification":"zone calme"
+        "specification":"zone calme",
+        "client_id":{"$oid":"65fa01895b4102100d0fce0e"}
     },
     {
         "_id":{"$oid":"65f9ddf95b4102100d0fcdd8"},
         "numero_res":126,
         "nb_sieges":3,
-        "specification":null
+        "specification":null,
+        "client_id":{"$oid":"65fa01945b4102100d0fce10"}
     },
     {
         "_id":{"$oid":"65f9de035b4102100d0fcdda"},
-        "numero_res":127,"nb_sieges":6,
-        "specification":"près de la cheminée"
+        "numero_res":127,
+        "nb_sieges":6,
+        "specification":"près de la cheminée",
+        "client_id":{"$oid":"65fa01a05b4102100d0fce12"}
+        
     },
     {
         "_id":{"$oid":"65f9de155b4102100d0fcddc"},
-        "numero_res":128,"nb_sieges":8,
-        "specification":null
+        "numero_res":128,
+        "nb_sieges":8,
+        "specification":null,
+        "client_id":{"$oid":"65fa01b05b4102100d0fce14"}
     },
     {
         "_id":{"$oid":"65f9de2e5b4102100d0fcdde"},
-        "numero_res":129,"nb_sieges":10,
-        "specification":null
+        "numero_res":129,
+        "nb_sieges":10,
+        "specification":null,
+        "client_id":{"$oid":"65fa01b15b4102100d0fce16"}
     },
     {
         "_id":{"$oid":"65f9de425b4102100d0fcde0"},
-        "numero_res":130,"nb_sieges":4,
-        "specification":null
+        "numero_res":130,
+        "nb_sieges":4,
+        "specification":null,
+        "client_id":{"$oid":"65fa01b25b4102100d0fce18"}
     },
     {
         "_id":{"$oid":"65f9de4b5b4102100d0fcde2"},
-        "numero_res":131,"nb_sieges":7,
-        "specification":"au fond du restaurant"
+        "numero_res":131,
+        "nb_sieges":7,
+        "specification":"au fond du restaurant",
+        "client_id":{"$oid":"65fa01b35b4102100d0fce1a"}
     },
     {
         "_id":{"$oid":"65f9de565b4102100d0fcde4"},
         "numero_res":132,
         "nb_sieges":2,
-        "specification":"pour un rendez-vous"
+        "specification":"pour un rendez-vous",
+        "client_id":{"$oid":"65fa01b45b4102100d0fce1c"}
     }
     ]
