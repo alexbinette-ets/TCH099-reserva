@@ -131,7 +131,8 @@ router.get('/dayreservations/:annee/:numMois/:jour', async (req, res) => {
       if (table) {
         tableDetails = {
           numero_res: table.numero_table,
-          section_id: table.section_id
+          section_id: table.section_id,
+          numero_table: table.numero_table
         };
       }
       else {
