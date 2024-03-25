@@ -1,5 +1,6 @@
 import Calendar from 'react-calendar';
 import { useEffect, useState } from "react";
+import 'react-calendar/dist/Calendar.css';
 
 const Calendrier = () => {
   const [date, setDate] = useState(new Date());
@@ -30,8 +31,8 @@ const Calendrier = () => {
     <div>
       <Calendar onChange={onChange} value={date} />
       {reservations && reservations.length > 0 ? (
-        <table>
-          <thead>
+        <table className='CalendrierTable'>
+          <thead className='CalendrierHead'>
             <tr>
               <th>Num de reservation</th>
               <th>Debut</th>
@@ -41,7 +42,7 @@ const Calendrier = () => {
               <th>Specifications</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className='CalendrierBody'>
             {reservations.map((reservation) => (
               <tr key={reservation.numero_res}>
                 <td>{reservation.numero_res}</td>
@@ -55,7 +56,7 @@ const Calendrier = () => {
           </tbody>
         </table>
       ) :
-        <div> Aucune reservation pour cette date</div>}
+        <div className='CalendrierNull'> Aucune reservation pour cette date</div>}
     </div>
   );
 }

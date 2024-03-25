@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/*-------------------------CALENDRIER-------------------------*/
+.CalendrierTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.CalendrierBody {
+  text-align: center;
+}

@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import Calendrier from './Calendrier';
 function App() {
   return (
