@@ -20,9 +20,9 @@ async function run() {
     // Connect the client to the server (optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
-    await client.db("TestAPI1erSprint").command({ ping: 1 });
+    await client.db("ReservationRestaurant").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
-    app.locals.db = client.db("TestAPI1erSprint");
+    app.locals.db = client.db("ReservationRestaurant");
     app.listen(5000, function () {
       console.log("Express écoute sur le port 5000!");
      });
@@ -40,15 +40,12 @@ finally {
 
 //on run la connection DB
 run().catch(console.dir);
-
-<<<<<<< Updated upstream
-app.listen(5000, function () {
- console.log("Express écoute sur le port 5000!");
-});
-app.get('/', function(req, res) {
-  res.send('hello world');
-});
-=======
+//middleware quon va utiliser plus tard pour authentification
+//pasfiniapp.use(express.json());
+app.use((req,res,next) => {
+  console.log(req.path,req.method)
+  next()
+  })
 
 //on attend que express ferme pour fermer la connection à DB
 process.on('SIGINT', async () => {
@@ -62,13 +59,11 @@ process.on('SIGINT', async () => {
     process.exit(1);
   }});
 
-//middleware quon va utiliser plus tard pour authentification
-//pasfiniapp.use(express.json());
-app.use((req,res,next) => {
-console.log(req.path,req.method)
-next()
-})
+
 
 //routes
 app.use('/api/employe', routesEmploye);
->>>>>>> Stashed changes
+
+app.get('/', function(req, res) {
+  res.send('hello world');
+});
