@@ -18,7 +18,6 @@ const Calendrier = () => {
       console.log("Month: ", month);
       console.log("Day: ", day);
 
-      //const url = `api/employe/dayreservations/${year}/${month}/${day}`;
       const url = `http://localhost:5000/api/employe/dayreservations/${year}/${month}/${day}`;
 
       fetch(url)
