@@ -45,12 +45,12 @@ const Calendrier = () => {
           <tbody className='CalendrierBody'>
             {reservations.map((reservation) => (
               <tr key={reservation.numero_res}>
-                <td>{reservation.numero_res}</td>
-                <td>{reservation.heure_debut}</td>
-                <td>{reservation.heure_fin}</td>
-                <td>{reservation.numero_table}</td>
-                <td>{reservation.nb_sieges}</td>
-                <td>{reservation.specification}</td>
+                <td className='CalendrierTD'>{reservation.numero_res}</td>
+                <td className='CalendrierTD'>{reservation.heure_debut}</td>
+                <td className='CalendrierTD'>{reservation.heure_fin}</td>
+                <td className='CalendrierTD'>{reservation.numero_table}</td>
+                <td className='CalendrierTD'>{reservation.nb_sieges}</td>
+                <td className='CalendrierTD'>{reservation.specification}</td>
               </tr>
             ))}
           </tbody>
