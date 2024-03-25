@@ -1,7 +1,11 @@
 const express = require("express");
 const routesEmploye = require('./routes/routesEmploye');
 const app = express();
+const cors = require('cors');
 
+app.use(cors({
+  origin: '*'
+}));
 
 const { MongoClient, ServerApiVersion } = require("mongodb");
 // Replace the placeholder with your Atlas connection string
