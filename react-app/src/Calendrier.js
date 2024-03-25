@@ -28,7 +28,7 @@ const Calendrier = () => {
   }, [date]);
 
   return (
-    <div>
+    <div className='Calendrier'>
       <Calendar onChange={onChange} value={date} />
       {reservations && reservations.length > 0 ? (
         <table className='CalendrierTable'>

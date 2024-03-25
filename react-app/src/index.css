@@ -13,11 +13,16 @@ code {
 }
 
 /*-------------------------CALENDRIER-------------------------*/
+.Calendrier{
+  display:flex;
+}
 .CalendrierTable {
-  width: 100%;
+  flex-grow: 1;
+  width:100%;
   border-collapse: collapse;
 }
 
 .CalendrierBody {
   text-align: center;
 }
+
