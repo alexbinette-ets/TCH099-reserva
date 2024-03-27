@@ -13,13 +13,14 @@ code {
 }
 
 /*-------------------------CALENDRIER-------------------------*/
-.Calendrier{
-  display:flex;
+.Calendrier {
+  display: flex;
   align-items: flex-start;
 }
+
 .CalendrierTable {
   flex-grow: 1;
-  width:100%;
+  width: 100%;
   border-collapse: collapse;
 }
 
@@ -27,7 +28,17 @@ code {
   text-align: center;
 }
 
-.CalendrierTD{
-  padding-top:10px;
-  padding-bottom:10px;
+.CalendrierTD {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/*-------------------------LOGIN-------------------------*/
+
+.LoginForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
 }
