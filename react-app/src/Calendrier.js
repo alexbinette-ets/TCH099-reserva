@@ -2,9 +2,13 @@ import Calendar from 'react-calendar';
 import { useEffect, useState } from "react";
 import 'react-calendar/dist/Calendar.css';
 
-const Calendrier = () => {
+const Calendrier = ({onLogout}) => {
   const [date, setDate] = useState(new Date());
   const [reservations, setReservations] = useState(null);
+
+  const handleLogout = () => {
+    onLogout();
+  };
 
   const onChange = date => {
     setDate(date);
@@ -29,6 +33,7 @@ const Calendrier = () => {
 
   return (
     <div className='Calendrier'>
+      <button onClick={handleLogout}>Deconnection</button>
       <Calendar onChange={onChange} value={date} />
       {reservations && reservations.length > 0 ? (
         <table className='CalendrierTable'>

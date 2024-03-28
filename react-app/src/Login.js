@@ -10,7 +10,7 @@ const Login = ({ onLogin }) => {
         setIsLoading(true);
 
         try {
-            const response = await fetch('your_login_endpoint', {
+            const response = await fetch('', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
