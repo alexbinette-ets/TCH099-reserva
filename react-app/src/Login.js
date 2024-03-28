@@ -1,27 +1,62 @@
-const Login = () => {
+import React, { useState } from 'react';
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const username = e.target.elements.username.value;
-        const password = e.target.elements.password.value;
+const Login = ({ onLogin }) => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
-        
-    }
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        setIsLoading(true);
+
+        try {
+            const response = await fetch('your_login_endpoint', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+
+            if (response.ok) {
+                onLogin();
+            } else {
+                console.error('Authentication failed');
+            }
+        } catch (error) {
+            console.error('Network error:', error.message);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
         <div>
-            <form onSubmit={HandleSubmit} className="LoginForm">
-                <label htmlFor="username">Username:</label>
-                <input type="text" id="username" name="username" required />
-                <br />
-
-                <label htmlFor="password" required>Password:</label>
-                <input type="password" id="password" name="password" />
-                <br />
-
-                <input type="submit" value="Submit" />
+            <form onSubmit={handleSubmit} className='LoginForm'>
+                <div>
+                    <label htmlFor="username">Username:</label>
+                    <input
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="password">Password:</label>
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <button type="submit" disabled={isLoading}>Se connecter</button>
+                </div>
             </form>
         </div>
     );
-}
+};
 
 export default Login;
