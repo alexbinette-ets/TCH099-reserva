@@ -1,70 +1,82 @@
 [
     {
         "_id":{"$oid":"65fa01695b4102100d0fce0a"},
-        "nom_client":"Mendez","prenom_client":"Miguel",
+        "nom_client":"Mendez",
+        "prenom_client":"Miguel",
         "telephone":"764-098-9873",
-        "email":"hyutu@gmail.com"
+        "email":"hyutu@gmail.com",
+	"reservation_id":{"$oid":"65f9ddc85b4102100d0fcdd2"}
     },
     {
         "_id":{"$oid":"65fa01805b4102100d0fce0c"},
         "nom_client":"Dubois",
         "prenom_client":"Marie",
         "telephone":"621-345-6789",
-        "email":"marie.dubois@example.com"
+        "email":"marie.dubois@example.com",
+	"reservation_id":{"$oid":"65f9ddce5b4102100d0fcdd4"}
     },
     {
         "_id":{"$oid":"65fa01895b4102100d0fce0e"},
         "nom_client":"Smith",
         "prenom_client":"John",
         "telephone":"555-123-4567",
-        "email":"john.smith@example.com"
+        "email":"john.smith@example.com",
+	"reservation_id":{"$oid":"65f9dde55b4102100d0fcdd6"}
     },
     {
         "_id":{"$oid":"65fa01945b4102100d0fce10"},
         "nom_client":"Garcia",
         "prenom_client":"Sofia",
         "telephone":"123-456-7890",
-        "email":"sofia.garcia@example.com"},
+        "email":"sofia.garcia@example.com",
+	"reservation_id":{"$oid":"65f9ddf95b4102100d0fcdd8"}
+    },
     {
         "_id":{"$oid":"65fa01a05b4102100d0fce12"},
         "nom_client":"Chen",
         "prenom_client":"Wei",
         "telephone":"999-888-7777",
-        "email":"wei.chen@example.com"
+        "email":"wei.chen@example.com",
+	"reservation_id":{"$oid":"65f9de035b4102100d0fcdda"}
     },
     {
         "_id":{"$oid":"65fa01b05b4102100d0fce14"},
         "nom_client":"Lopez",
         "prenom_client":"Carlos",
         "telephone":"456-789-0123",
-        "email":"carlos.lopez@example.com"
+        "email":"carlos.lopez@example.com",
+	"reservation_id":{"$oid":"65f9de155b4102100d0fcddc"}
     },
     {
         "_id":{"$oid":"65fa01b15b4102100d0fce16"},
         "nom_client":"Kowalski",
         "prenom_client":"Anna",
         "telephone":"987-654-3210",
-        "email":"anna.kowalski@example.com"
+        "email":"anna.kowalski@example.com",
+	"reservation_id":{"$oid":"65f9de2e5b4102100d0fcdde"}
     },
     {
         "_id":{"$oid":"65fa01b25b4102100d0fce18"},
         "nom_client":"Nguyen",
         "prenom_client":"Huong",
         "telephone":"321-654-9870",
-        "email":"huong.nguyen@example.com"
+        "email":"huong.nguyen@example.com",
+	"reservation_id":{"$oid":"65f9de425b4102100d0fcde0"}
     },
     {
         "_id":{"$oid":"65fa01b35b4102100d0fce1a"},
         "nom_client":"Kim",
         "prenom_client":"Minho",
         "telephone":"789-012-3456",
-        "email":"minho.kim@example.com"
+        "email":"minho.kim@example.com",
+	"reservation_id":{"$oid":"65f9de4b5b4102100d0fcde2"}
     },
     {
         "_id":{"$oid":"65fa01b45b4102100d0fce1c"},
         "nom_client":"Gonzalez",
         "prenom_client":"Alejandro",
         "telephone":"012-345-6789",
-        "email":"alejandro.gonzalez@example.com"
+        "email":"alejandro.gonzalez@example.com",
+	"reservation_id":{"$oid":"65f9de565b4102100d0fcde4"}
     }
 ]
