@@ -42,3 +42,28 @@ code {
   min-height: 100vh;
   flex-direction: column;
 }
+
+/*-------------------------HomePage-------------------------*/
+
+.HomePage {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.HomePage h1 {
+  color: #f1356d;
+}
+
+.HomePage .HomePageLinks {
+  margin-left: auto;
+}
+
+.HomePage a{
+  margin-left: 16px;
+  text-decoration: none;
+  padding: 16px;
+}

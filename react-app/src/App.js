@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import Calendrier from './Calendrier';
 import Login from './Login';
+import HomePage from './HomePage';
 
 function App() {
-  const [LoggedIn, setLoggedIn] = useState(false);
+  const [LoggedIn, setLoggedIn] = useState(true);
 
   const handleLogin = () => {
     setLoggedIn(true);
@@ -14,6 +15,7 @@ function App() {
   }
 
   return (
+
     <div className="App">
       {LoggedIn ? (
         <Calendrier onLogout={handleLogout} />
@@ -21,6 +23,12 @@ function App() {
         <Login onLogin={handleLogin} />
       )}
     </div>
+
+    /*
+        <div className='App'>
+          <HomePage/>
+        </div>
+        */
   );
 }
 
