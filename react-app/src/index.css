@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #D5C5BB;
 }
 
 code {
@@ -14,14 +15,29 @@ code {
 
 /*-------------------------CALENDRIER-------------------------*/
 .Calendrier {
-  display: flex;
-  align-items: flex-start;
+  display: grid;
+  grid-template-areas: 
+  'button calendrier'
+  'table table';
+}
+
+.CalendrierButton{
+  grid-area: button;
+  padding: 5px 10px;
+  font-size: 12px;
+  align-self: start;
+  width: fit-content;
+}
+
+.react-calendar {
+  grid-area: calendrier;
 }
 
 .CalendrierTable {
-  flex-grow: 1;
   width: 100%;
   border-collapse: collapse;
+  grid-area: table;
+  margin-top: 10px;
 }
 
 .CalendrierBody {
@@ -62,7 +78,7 @@ code {
   margin-left: auto;
 }
 
-.HomePage a{
+.HomePage a {
   margin-left: 16px;
   text-decoration: none;
   padding: 16px;

@@ -33,7 +33,7 @@ const Calendrier = ({onLogout}) => {
 
   return (
     <div className='Calendrier'>
-      <button onClick={handleLogout}>Deconnection</button>
+      <button className='CalendrierButton' onClick={handleLogout}>Deconnection</button>
       <Calendar onChange={onChange} value={date} />
       {reservations && reservations.length > 0 ? (
         <table className='CalendrierTable'>
