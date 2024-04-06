@@ -24,12 +24,6 @@ function App() {
         <Login onLogin={handleLogin} />
       )}
     </div>
-
-    /*
-        <div className='App'>
-          <HomePage/>
-        </div>
-        */
   );
 }
 

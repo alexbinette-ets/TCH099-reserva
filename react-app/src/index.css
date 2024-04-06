@@ -16,12 +16,14 @@ code {
 /*-------------------------CALENDRIER-------------------------*/
 .Calendrier {
   display: grid;
-  grid-template-areas: 
-  'button calendrier'
-  'table table';
+  grid-template-areas:
+    "button calendrier vide"
+    "table table table";
+  grid-template-rows: auto auto;
+  grid-template-columns: 1fr auto 1fr;
 }
 
-.CalendrierButton{
+.CalendrierButton {
   grid-area: button;
   padding: 5px 10px;
   font-size: 12px;
@@ -33,7 +35,18 @@ code {
   grid-area: calendrier;
 }
 
-.CalendrierTable {
+.CalendrierVide {
+  grid-area: vide;
+}
+
+.parentTableaux {
+  width: 100%;
+  border-collapse: collapse;
+  grid-area: table;
+  margin-top: 10px;
+}
+
+.CalendrierNull {
   width: 100%;
   border-collapse: collapse;
   grid-area: table;
@@ -62,10 +75,12 @@ code {
 /*-------------------------HomePage-------------------------*/
 
 .HomePage {
-  padding: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 0;
+  padding-bottom: 0;
   display: flex;
   align-items: center;
-  max-width: 600px;
   margin: 0 auto;
   border-bottom: 1px solid #f2f2f2;
 }
