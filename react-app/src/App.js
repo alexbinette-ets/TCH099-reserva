@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Calendrier from './Calendrier';
 import Login from './Login';
 import HomePage from './HomePage';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 function App() {
   const [LoggedIn, setLoggedIn] = useState(true);
@@ -15,15 +16,22 @@ function App() {
   }
 
   return (
-
-    <div className="App">
-      <HomePage/>
-      {LoggedIn ? (
-        <Calendrier onLogout={handleLogout} />
-      ) : (
-        <Login onLogin={handleLogin} />
-      )}
-    </div>
+    <Router>
+      <div className="App">
+        <HomePage />
+        <div>
+          <Switch>
+            <Route path="/">
+            {LoggedIn ? (
+              <Calendrier onLogout={handleLogout} />
+            ) : (
+              <Login onLogin={handleLogin} />
+            )}
+            </Route>
+          </Switch>
+        </div>
+      </div>
+    </Router>
   );
 }
 
