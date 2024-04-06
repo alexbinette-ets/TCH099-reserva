@@ -1,6 +1,7 @@
 import Calendar from 'react-calendar';
 import { useEffect, useState } from "react";
 import 'react-calendar/dist/Calendar.css';
+import * as CONFIG from './utils/config.js'
 
 const Calendrier = ({ onLogout }) => {
   //La vraie situation sera un fetch des données de l'authentification (serveur id), et apres avec cette données on active une fonction highlight!
@@ -27,7 +28,7 @@ const Calendrier = ({ onLogout }) => {
       console.log("Month: ", month);
       console.log("Day: ", day);
 
-      const url = `http://localhost:5000/api/employe/dayreservations/${year}/${month}/${day}`;
+      const url = `${CONFIG.API_URL}/dayreservations/${year}/${month}/${day}`;
 
       fetch(url)
         .then(res => res.json())

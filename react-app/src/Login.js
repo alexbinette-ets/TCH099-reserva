@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import * as CONFIG from './utils/config.js'
 
 const Login = ({ onLogin }) => {
     const [username, setUsername] = useState('');

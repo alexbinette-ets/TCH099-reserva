@@ -1,6 +1,7 @@
 import Calendar from 'react-calendar';
 import { useEffect, useState } from "react";
 import 'react-calendar/dist/Calendar.css';
+import * as CONFIG from "./utils/config.js"
 
 const Reservation = () => {
     const [date, setDate] = useState(new Date());
@@ -19,7 +20,7 @@ const Reservation = () => {
             console.log("Month: ", month);
             console.log("Day: ", day);
 
-            const url = `http://localhost:5000/api/employe/reserver/${year}/${month}/${day}`;//*******************************************/
+            const url = `${CONFIG.API_URL}/reserver/${year}/${month}/${day}`;//*******************************************/
 
             fetch(url)
                 .then(res => res.json())

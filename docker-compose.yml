@@ -2,6 +2,8 @@ version: '3'
 
 services:
   mongodb:
+    # azure
+    image: reserva.azurecr.io/mongodb
     container_name: mongodb_1
     build:
       context: mongo
@@ -15,6 +17,8 @@ services:
       - 27017
 
   express:
+    # azure
+    image: reserva.azurecr.io/express
     container_name: express_1
     build:
       context: express
@@ -28,6 +32,7 @@ services:
       - 5000
 
   mongo-express:
+    #azure
     container_name: mongo-express_1
     image: mongo-express
     ports:
@@ -41,18 +46,18 @@ services:
     networks:
       - express-mongo
 
-  react:
-    container_name: react_1
-    build:
-      context: react-app
-    ports:
-      - "3000:3000"
-    depends_on:
-      - express
-    networks:
-      - express-mongo
-    expose:
-      - 3000
+# react:
+#   container_name: react_1
+#   build:
+#     context: react-app
+#   ports:
+#     - "3000:3000"
+#   depends_on:
+#     - express
+#   networks:
+#     - express-mongo
+#   expose:
+#     - 3000
 
 volumes:
   mongodb-data:

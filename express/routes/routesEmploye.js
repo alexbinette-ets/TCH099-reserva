@@ -1,0 +1,187 @@
+const express = require('express');
+const router = express.Router();
+const { MongoClient } = require('mongodb');
+//?ligne qui donne erreur const fetch = require('node-fetch');
+
+
+//GET infos date du jour
+router.get('/date', (req, res) => {
+  const dateActuelle = new Date();
+  //Les mois commencent à 0
+  const numMois = dateActuelle.getMonth() + 1;
+  const annee = dateActuelle.getFullYear();
+  const jour = dateActuelle.getDate();
+
+  //mois en string
+  const options = { month: 'long' };
+  const nomMois = dateActuelle.toLocaleDateString('fr-FR', options);
+  const infosDateActuelleJSON =
+  {
+    jour,
+    numMois,
+    annee,
+    nomMois
+  }
+  res.json(infosDateActuelleJSON);
+});
+
+
+//GET calendrier
+router.get('/calendrier', async (req, res) => {
+  try {
+    const response = await fetch('http://localhost:5000/api/employe/date');
+    const data = await response.json();
+    const { numMois, annee, nomMois } = data;
+
+    //calcul nb jours
+    let nbJours;
+    if (numMois === 2) {
+      nbJours = (annee % 4 === 0 && (annee % 100 !== 0 || annee % 400 === 0)) ? 29 : 28;
+    } else if (['1', '3', '5', '7', '8', '10', '12'].includes(numMois)) {
+      nbJours = 31;
+    } else {
+      nbJours = 30;
+    }
+    const infosDateCalendrierJSON = {
+      numMois,
+      annee,
+      nomMois,
+      nbJours
+    }
+    res.json(infosDateCalendrierJSON);
+  }
+  catch (erreur) {
+    console.error(erreur);
+    res.status(500).json({ mssg: "Erreur récupération données" });
+  }
+});
+
+
+//GET liste reservation de la journee
+router.get('/dayreservations/:annee/:numMois/:jour', async (req, res) => {
+  const annee = parseInt(req.params.annee);
+  const numMois = parseInt(req.params.numMois);
+  const jour = parseInt(req.params.jour);
+
+
+
+
+  const dateString = `${annee.toString()}-${numMois.toString().padStart(2, '0')}-${jour.toString().padStart(2, '0')}`;
+  const date = new Date(dateString);
+  console.log(date);
+
+  //si je le met plus loin ca veut pas
+  const reservationsDuJour = [];
+  try {
+    const collectionDisponibilite = req.app.locals.db.collection("Disponibilite");
+    const collectionReservation = req.app.locals.db.collection("Reservation");
+    const collectionTable = req.app.locals.db.collection("Table");
+    const collectionSection = req.app.locals.db.collection("Section");
+
+    const disponibilites = await collectionDisponibilite.find({
+      timestamp_debut: {
+        $gte: new Date(date.getFullYear(), date.getMonth(), date.getDate()),
+        $lt: new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1)
+      }
+    }).toArray();
+    console.log("Disponibilités trouvées :", disponibilites);
+
+    if (disponibilites.length === 0) {
+      return res.status(404).json({ message: "Aucune disponibilité trouvée pour la date spécifiée" });
+    }
+
+    let reservationDetails = {};
+    let tableDetails = {};
+    let sectionDetails = {};
+
+
+    for (const disponibilite of disponibilites) {
+      const { _id, timestamp_debut, timestamp_fin } = disponibilite;
+      console.log("ID DISPONIBILITÉ TROUVÉE : " + disponibilite.id);
+
+      const reservation = await collectionReservation.findOne({
+        dispo_id: disponibilite._id
+      });
+
+      if (reservation) {
+        // Si une réservation est trouvée, affichez ses détails
+        console.log("Reservation trouvée pour cette disponibilite")
+        reservationDetails = {
+          numero_res: reservation.numero_res,
+          nb_sieges: reservation.nb_sieges,
+          specification: reservation.specification
+        };
+
+
+      } else {
+        console.log("Aucune réservation trouvée pour cette disponibilité");
+        continue;
+      }
+      const { numero_res, nb_sieges, specification } = reservationDetails;
+
+      const dispoIdFields = ["dispo1_id", "dispo2_id", "dispo3_id", "dispo4_id", "dispo5_id", "dispo6_id"];
+
+      const query = {
+        $or: dispoIdFields.map(field => ({
+          [field]: disponibilite._id
+        }))
+      };
+      const table = await collectionTable.findOne({
+      });
+      if (table) {
+        tableDetails = {
+          numero_res: table.numero_table,
+          section_id: table.section_id,
+          numero_table: table.numero_table
+        };
+      }
+      else {
+        console.log("ERREUR : Aucune table trouvée pour cette disponibilité");
+        continue;
+      }
+      const { numero_table, section_id } = tableDetails;
+
+
+      const section = await collectionSection.findOne({ _id: table.section_id });
+      if (section) {
+        sectionDetails = {
+          nom: table.nom,
+          type: table.type
+        };
+      }
+      else {
+        console.log("ERREUR : Aucune section trouvée pour cette disponibilité");
+        continue;
+      }
+
+      // Si la section est trouvée, vous pouvez accéder à ses détails comme son nom, etc.
+      const { nom, type } = sectionDetails;
+
+      reservationsDuJour.push({
+        date: new Date(timestamp_debut).toLocaleDateString(),
+        heure_debut: new Date(timestamp_debut).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        heure_fin: new Date(timestamp_fin).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        numero_res,
+        numero_table,
+        nb_sieges,
+        specification,
+        nom,
+        type
+      });
+    }
+
+  }
+
+  catch (error) {
+    console.error("Erreur lors de la requete!:", error);
+    res.status(500).json({ error: "Erreur lors de la requete!" })
+  };
+  res.json(reservationsDuJour);
+});
+
+//GET test
+router.get('/test', (req, res) => {
+  res.json({ mssg: 'Route de test fonctionnelleAYAY !' });
+});
+
+module.exports = router
