@@ -2,7 +2,8 @@ FROM mongo:jammy
 
 # Create the data directory
 RUN mkdir -p /data/db
-
+COPY . /tmp/
+RUN sh /tmp/fichiers_db/mongoimport.sh
 # Set the working directory
 WORKDIR /data/db
 

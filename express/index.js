@@ -2,6 +2,7 @@ const express = require("express");
 const routesEmploye = require(__dirname + '/routes/routesEmploye');
 const app = express();
 const cors = require('cors');
+const CONFIG = require("./utils/config.js");
 
 app.use(cors({
   origin: '*'
@@ -9,9 +10,8 @@ app.use(cors({
 
 const { MongoClient, ServerApiVersion } = require("mongodb");
 // Replace the placeholder with your Atlas connection string
-const uri = "mongodb://mongo.h3gqa6daa8f9c0fs.canadaeast.azurecontainer.io";
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri,  {
+const client = new MongoClient(CONFIG.DB_URL,  {
         serverApi: {
             version: ServerApiVersion.v1,
             strict: true,
