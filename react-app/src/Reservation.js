@@ -4,6 +4,7 @@ import 'react-calendar/dist/Calendar.css';
 
 const Reservation = () => {
     const [date, setDate] = useState(new Date());
+    const [reservations, setReservations] = useState(null);
 
     const onChange = date => {
         setDate(date);
@@ -17,12 +18,38 @@ const Reservation = () => {
             console.log("Year: ", year);
             console.log("Month: ", month);
             console.log("Day: ", day);
+
+            const url = `http://localhost:5000/api/employe/reserver/${year}/${month}/${day}`;//*******************************************/
+
+            fetch(url)
+                .then(res => res.json())
+                .then(data => setReservations(data))
         }
     }, [date]);
 
     return (
-        <div className="Reservation">
+        <div className='Reservation'>
+            <button onClick={handleLogout}>Deconnection</button>
             <Calendar onChange={onChange} value={date} />
+            {reservations && reservations.length > 0 ? (
+                <table className='ReservationTable'>
+                    <thead className='ReservationHead'>
+                        <tr>
+                            <th>Debut</th>
+                            <th>Fin</th>
+                        </tr>
+                    </thead>
+                    <tbody className='ReservationBody'>
+                        {reservations.map((reservation) => (
+                            <tr key={reservation.numero_res}>
+                                <td className='ReservationTD'>{reservation.heure_debut}</td>
+                                <td className='ReservationTD'>{reservation.heure_fin}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            ) :
+                <div className='CalendrierNull'> Aucune reservation pour cette date</div>}
         </div>
     );
 }
