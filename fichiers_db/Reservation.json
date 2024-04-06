@@ -5,7 +5,8 @@
         "nb_sieges":5,
         "specification":"cote fenetre",
         "client_id":{"$oid":"65fa01695b4102100d0fce0a"},
-	"dispo_id":{"$oid":"65f9f8a95b4102100d0fce09"}
+	"dispo_id":{"$oid":"65f9f8a95b4102100d0fce09"},
+    "serveur_id":{"$oid": "65f9dd355b4102100d0fcdd0"}
     },
     {
         "_id":{"$oid":"65f9ddce5b4102100d0fcdd4"},
@@ -13,7 +14,8 @@
         "nb_sieges":2,
         "specification":"table ronde",
         "client_id":{"$oid":"65fa01805b4102100d0fce0c"},
-	"dispo_id":{"$oid":"65f9f8a95b4102100d0fce0a"}
+	"dispo_id":{"$oid":"65f9f8a95b4102100d0fce0a"},
+    "serveur_id":{"$oid": "65f9dd1d5b4102100d0fcdcc"}
     },
     {
         "_id":{"$oid":"65f9dde55b4102100d0fcdd6"},
@@ -21,8 +23,8 @@
         "nb_sieges":4,
         "specification":"zone calme",
         "client_id":{"$oid":"65fa01895b4102100d0fce0e"},
-	"dispo_id":{"$oid":"65f9f8a95b4102100d0fce0b"}
-	
+	"dispo_id":{"$oid":"65f9f8a95b4102100d0fce0b"},
+	"serveur_id":{"$oid": "65f9dd265b4102100d0fcdce"}
     },
     {
         "_id":{"$oid":"65f9ddf95b4102100d0fcdd8"},
@@ -30,8 +32,8 @@
         "nb_sieges":3,
         "specification":null,
         "client_id":{"$oid":"65fa01945b4102100d0fce10"},
-	"dispo_id":{"$oid":"65f9f8a95b4102100d0fce0c"}
-	
+	"dispo_id":{"$oid":"65f9f8a95b4102100d0fce0c"},
+	"serveur_id":{"$oid": "65f9dc5a5b4102100d0fcdca"}
     },
     {
         "_id":{"$oid":"65f9de035b4102100d0fcdda"},
@@ -39,8 +41,8 @@
         "nb_sieges":6,
         "specification":"près de la cheminée",
         "client_id":{"$oid":"65fa01a05b4102100d0fce12"},
-	"dispo_id":{"$oid":"65f9f8a95b4102100d0fce0d"}
-        
+	"dispo_id":{"$oid":"65f9f8a95b4102100d0fce0d"},
+    "serveur_id":{"$oid": "65f9dc455b4102100d0fcdc6"}
     },
     {
         "_id":{"$oid":"65f9de155b4102100d0fcddc"},
@@ -48,7 +50,8 @@
         "nb_sieges":8,
         "specification":null,
         "client_id":{"$oid":"65fa01b05b4102100d0fce14"},
-	"dispo_id":{"$oid":"65f9f8a95b4102100d0fce0e"}
+	"dispo_id":{"$oid":"65f9f8a95b4102100d0fce0e"},
+    "serveur_id":{"$oid": "65f9dc505b4102100d0fcdc8"}
     },
     {
         "_id":{"$oid":"65f9de2e5b4102100d0fcdde"},
@@ -56,7 +59,8 @@
         "nb_sieges":10,
         "specification":null,
         "client_id":{"$oid":"65fa01b15b4102100d0fce16"},
-	"dispo_id":{"$oid":"65f9f8a95b4102100d0fce0f"}
+	"dispo_id":{"$oid":"65f9f8a95b4102100d0fce0f"},
+    "serveur_id":{"$oid": "65f9dc325b4102100d0fcdc4"}
     },
     {
         "_id":{"$oid":"65f9de425b4102100d0fcde0"},
@@ -64,7 +68,8 @@
         "nb_sieges":4,
         "specification":null,
         "client_id":{"$oid":"65fa01b25b4102100d0fce18"},
-	"dispo_id":{"$oid":"65f9f8a95b4102100d0fce10"}
+	"dispo_id":{"$oid":"65f9f8a95b4102100d0fce10"},
+    "serveur_id":{"$oid": "65f9dc1c5b4102100d0fcdc0"}
     },
     {
         "_id":{"$oid":"65f9de4b5b4102100d0fcde2"},
@@ -72,7 +77,8 @@
         "nb_sieges":7,
         "specification":"au fond du restaurant",
         "client_id":{"$oid":"65fa01b35b4102100d0fce1a"},
-	"dispo_id":{"$oid":"65f9f8a95b4102100d0fce11"}
+	"dispo_id":{"$oid":"65f9f8a95b4102100d0fce11"},
+    "serveur_id":{"$oid": "65f9dc275b4102100d0fcdc2"}
     },
     {
         "_id":{"$oid":"65f9de565b4102100d0fcde4"},
@@ -80,6 +86,7 @@
         "nb_sieges":2,
         "specification":"pour un rendez-vous",
         "client_id":{"$oid":"65fa01b45b4102100d0fce1c"},
-	"dispo_id":{"$oid":"65f9f8a95b4102100d0fce12"}
+	"dispo_id":{"$oid":"65f9f8a95b4102100d0fce12"},
+    "serveur_id":{"$oid": "65f9dbc05b4102100d0fcdbe"}
     }
 ]

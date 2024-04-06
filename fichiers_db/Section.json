@@ -4,19 +4,14 @@
         "nom":"A",
         "ouverture":true,
         "nb_serveurs":2,
-        "type":"terrasse",
-        "serveur1_id":{"$oid":"65f9dbc05b4102100d0fcdbe"},
-        "serveur2_id":{"$oid":"65f9dc1c5b4102100d0fcdc0"}
+        "type":"terrasse"
     },
     {
         "_id":{"$oid":"65f9df255b4102100d0fcde8"},
         "nom":"B",
         "ouverture":false,
         "nb_serveurs":3,
-        "type":"terrasse",
-        "serveur1_id":{"$oid":"65f9dc275b4102100d0fcdc2"},
-        "serveur2_id":{"$oid":"65f9dc455b4102100d0fcdc6"},
-        "serveur3_id":{"$oid":"65f9dc325b4102100d0fcdc4"}
+        "type":"terrasse"
 
     },
     {
@@ -24,10 +19,7 @@
         "nom":"C",
         "ouverture":true,
         "nb_serveurs":3,
-        "type":"salle à manger",
-        "serveur1_id":{"$oid":"65f9dc505b4102100d0fcdc8"},
-        "serveur2_id":{"$oid":"65f9dc5a5b4102100d0fcdca"},
-        "serveur3_id":{"$oid":"65f9dd1d5b4102100d0fcdcc"}
+        "type":"salle à manger"
         
     },
     {
@@ -35,8 +27,6 @@
         "nom":"D",
         "ouverture":true,
         "nb_serveurs":2,
-        "type":"salle à manger",
-        "serveur1_id":{"$oid":"65f9dd355b4102100d0fcdd0"},
-        "serveur2_id":{"$oid":"65f9dd265b4102100d0fcdce"}
+        "type":"salle à manger"
     }
 ]

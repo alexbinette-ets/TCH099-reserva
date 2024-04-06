@@ -67,7 +67,7 @@ const Calendrier = ({ onLogout }) => {
                   <th>Nb Sieges</th>
                   <th>Specification</th>
                   <th>Nom Section</th>
-                  <th>Noms Serveurs</th>
+                  <th>Nom Serveur</th>
                   <th>Prenom Client</th>
                   <th>Nom Client</th>
                   <th>Telephone Client</th>
@@ -83,12 +83,11 @@ const Calendrier = ({ onLogout }) => {
                     <td className='CalendrierTD'>{resSM.nb_sieges}</td>
                     <td className='CalendrierTD'>{resSM.specification}</td>
                     <td className='CalendrierTD'>{resSM.nom_section}</td>
-                    <td className='CalendrierTD'> {Object.values(resSM.serveursDetails).map(serveur => (
-                    <div key={serveur.serveur_id}>
-                    <p>{serveur.prenom_serveur}</p>
-                    </div>
-                    ))}
-                    </td>                    
+                    <td className='CalendrierTD'>
+                      <div>
+                        <p>{resSM.serveursDetails.prenom_serveur}</p>
+                      </div>
+                    </td>
                     <td className='CalendrierTD'>{resSM.prenom_client}</td>
                     <td className='CalendrierTD'>{resSM.nom_client}</td>
                     <td className='CalendrierTD'>{resSM.telephone}</td>
@@ -103,14 +102,14 @@ const Calendrier = ({ onLogout }) => {
               <caption>Terrasse</caption>
               <thead className='CalendrierHead'>
                 <tr>
-                <th>Num Reservation</th>
+                  <th>Num Reservation</th>
                   <th>Debut</th>
                   <th>Fin</th>
                   <th>Num Table</th>
                   <th>Nb Sieges</th>
                   <th>Specification</th>
                   <th>Nom Section</th>
-                  <th>Noms Serveurs</th>
+                  <th>Nom Serveur</th>
                   <th>Prenom Client</th>
                   <th>Nom Client</th>
                   <th>Telephone Client</th>
@@ -126,16 +125,13 @@ const Calendrier = ({ onLogout }) => {
                     <td className='CalendrierTD'>{resTER.nb_sieges}</td>
                     <td className='CalendrierTD'>{resTER.specification}</td>
                     <td className='CalendrierTD'>{resTER.nom_section}</td>
-                    <td className='CalendrierTD'>{Object.values(resTER.serveursDetails).map(serveur => (
-                    <div key={serveur.serveur_id}>
-                    <p>{serveur.prenom_serveur}</p>
-                    </div>
-                    ))}
+                    <td className='CalendrierTD'>
+                    <p>{resTER.serveursDetails.prenom_serveur}</p>
                     </td>
-                <td className='CalendrierTD'>{resTER.prenom_client}</td>
-                <td className='CalendrierTD'>{resTER.nom_client}</td>
-                <td className='CalendrierTD'>{resTER.telephone}</td>
-              </tr>
+                    <td className='CalendrierTD'>{resTER.prenom_client}</td>
+                    <td className='CalendrierTD'>{resTER.nom_client}</td>
+                    <td className='CalendrierTD'>{resTER.telephone}</td>
+                  </tr>
                 ))}
               </tbody>
             </table>
