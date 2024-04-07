@@ -49,7 +49,7 @@ const Reservation = () => {
                     </tbody>
                 </table>
             ) :
-                <div className='CalendrierNull'> Aucune reservation pour cette date</div>}
+                <div className='CalendrierNull'> Aucune disponibilité pour cette date</div>}
         </div>
     );
 }
