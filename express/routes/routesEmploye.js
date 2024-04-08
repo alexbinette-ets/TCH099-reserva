@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { MongoClient } = require('mongodb');
+const { ObjectId } = require('mongodb');
+
 //?ligne qui donne erreur const fetch = require('node-fetch');
 
 
@@ -29,6 +31,7 @@ router.get('/date', (req, res) => {
 //GET calendrier
 router.get('/calendrier', async (req, res) => {
   try {
+    //changer url ici
     const response = await fetch('http://localhost:5000/api/employe/date');
     const data = await response.json();
     const { numMois, annee, nomMois } = data;
@@ -234,6 +237,25 @@ router.get('/dayreservations/:annee/:numMois/:jour', async (req, res) => {
     res.status(500).json({ error: "Erreur lors de la requete!" })
   };
   res.json(reservationsDuJour);
+});
+
+//GET nom serveur pour affichage calendrier
+router.get('/nomEmploye/:id', async (req, res) => {
+
+  const collectionServeur = req.app.locals.db.collection("Serveur");
+  const serveur_id = req.params.id;
+  try {
+    const serveur = await collectionServeur.findOne({_id: new ObjectId(serveur_id)});
+    if (serveur) {
+      res.json(serveur.prenom_serveur);
+    } else {
+      res.status(404).json({ message: "Serveur non trouvé" });
+    }
+  }
+  catch (error) {
+    console.error("Erreur lors de la requete!:", error);
+    res.status(500).json({ error: "Erreur lors de la requete!" })
+  }
 });
 
 

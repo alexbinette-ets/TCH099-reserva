@@ -64,6 +64,32 @@ code {
   margin-right: 30px;
 }
 
+.serveurBrillance {
+  background-color: rgba(255, 174, 0, 0.489);
+}
+
+.CalendrierTable
+{
+  border-collapse: collapse;
+}
+
+.titreTableau
+{
+  caption-side: left;
+      font-weight: bold; 
+      font-size: 1.2em; 
+      margin-bottom: 10px; 
+      text-align: left;
+}
+
+.bienvenueServeur {
+  font-weight: bold; 
+  font-size: 1.2em; 
+  margin-bottom: 10px;
+  position: relative; 
+  left: 0;
+}
+
 /*-------------------------LOGIN-------------------------*/
 
 .LoginForm {

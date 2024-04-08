@@ -5,7 +5,6 @@ import * as CONFIG from './utils/config.js'
 
 const Calendrier = ({ onLogout }) => {
   //La vraie situation sera un fetch des données de l'authentification (serveur id), et apres avec cette données on active une fonction highlight!
-  const id_serveur_temporaire = "65f9dbc05b4102100d0fcdbe";
   const [date, setDate] = useState(new Date());
   const [reservations, setReservations] = useState(null);
   const [reservationsTerrasse, setReservationsTerrasse] = useState(null);
@@ -40,24 +39,51 @@ const Calendrier = ({ onLogout }) => {
             setReservationsTerrasse(reservationsTER);
             setReservationsSalleManger(reservationsSM);
           } else {
+            setReservations([]);
+            setReservationsTerrasse([]);
+            setReservationsSalleManger([]);
             console.log("Aucune données reçues");
           }
         });
     }
   }, [date]);
 
+  //changer id_Serveur_temporaire avec authentification
+  const [prenomServeur, setPrenomServeur] = useState(null);
+  const id_serveur_temporaire = "65f9dbc05b4102100d0fcdbe";
 
+  useEffect(() => {
+    // Effectuer la requête pour récupérer le prénom du serveur au montage du composant
+    const url2 = `${CONFIG.API_URL}/nomEmploye/${id_serveur_temporaire}`;
+    fetch(url2)
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('Erreur lors de la récupération du prénom du serveur');
+        }
+        return res.json();
+      })
+      .then(data => {
+        setPrenomServeur(data); // Mise à jour de l'état avec le prénom du serveur
+      })
+      .catch(error => {
+        console.error('Erreur lors de la requête fetch:', error);
+      });
+  }, []); // Ce tableau vide indique que l'effet se déclenche uniquement au montage du composant
 
   return (
     <div className='Calendrier'>
+      <div>
       <button className='CalendrierButton' onClick={handleLogout}>Deconnection</button>
+      <br />
+      <h1 className = "bienvenueServeur">Bonjour {prenomServeur} </h1>
+      </div>
       <Calendar onChange={onChange} value={date} />
       <div className='CalendrierVide'></div>
       {reservations && reservations.length > 0 ? (
         <div className='parentTableaux'>
           {reservationsSalleManger && reservationsSalleManger.length > 0 ? (
             <table className='CalendrierTable'>
-              <caption>Salle à manger</caption>
+              <caption className = "titreTableau">Salle à manger</caption>
               <thead className='CalendrierHead'>
                 <tr>
                   <th>Num Reservation</th>
@@ -75,8 +101,8 @@ const Calendrier = ({ onLogout }) => {
               </thead>
               <tbody className='CalendrierBody'>
                 {reservationsSalleManger.map((resSM) => (
-                  <tr key={resSM.numero_res}>
-                    <td className='CalendrierTD'>{resSM.numero_res}</td>
+                  <tr key={resSM.numero_res} className={resSM.serveursDetails.serveur_id === id_serveur_temporaire ? 'serveurBrillance' : ''}>
+                  <td className='CalendrierTD'>{resSM.numero_res}</td>
                     <td className='CalendrierTD'>{resSM.heure_debut}</td>
                     <td className='CalendrierTD'>{resSM.heure_fin}</td>
                     <td className='CalendrierTD'>{resSM.numero_table}</td>
@@ -97,9 +123,10 @@ const Calendrier = ({ onLogout }) => {
             </table>
           ) :
             <div className='CalendrierNull'> Aucune reservation pour la Salle à Manger</div>}
+
           {reservationsTerrasse && reservationsTerrasse.length > 0 ? (
             <table className='CalendrierTable'>
-              <caption>Terrasse</caption>
+              <caption className="titreTableau">Terrasse</caption>
               <thead className='CalendrierHead'>
                 <tr>
                   <th>Num Reservation</th>
@@ -117,7 +144,7 @@ const Calendrier = ({ onLogout }) => {
               </thead>
               <tbody className='CalendrierBody'>
                 {reservationsTerrasse.map((resTER) => (
-                  <tr key={resTER.numero_res}>
+                  <tr key={resTER.numero_res} className={resTER.serveursDetails.serveur_id === id_serveur_temporaire ? 'serveurBrillance' : ''}>
                     <td className='CalendrierTD'>{resTER.numero_res}</td>
                     <td className='CalendrierTD'>{resTER.heure_debut}</td>
                     <td className='CalendrierTD'>{resTER.heure_fin}</td>
