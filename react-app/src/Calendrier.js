@@ -26,6 +26,7 @@ const Calendrier = ({ username, onLogout }) => {
       console.log("Year: ", year);
       console.log("Month: ", month);
       console.log("Day: ", day);
+      console.log(username);
 
       const url = `${CONFIG.API_URL}/dayreservations/${year}/${month}/${day}`;
 
@@ -75,7 +76,7 @@ const Calendrier = ({ username, onLogout }) => {
       <div>
       <button className='CalendrierButton' onClick={handleLogout}>Deconnection</button>
       <br />
-      <h1 className = "bienvenueServeur">Bonjour {prenomServeur} </h1>
+      <h1 className = "bienvenueServeur">Bonjour {username} </h1>
       </div>
       <Calendar onChange={onChange} value={date} />
       <div className='CalendrierVide'></div>

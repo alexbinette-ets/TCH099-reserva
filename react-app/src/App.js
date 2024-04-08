@@ -8,7 +8,7 @@ import TopBar from './TopBar';
 
 function App() {
   const [LoggedIn, setLoggedIn] = useState(true);
-  consts [username, setUsername] = useState('');
+  const [username, setUsername] = useState('');
 
   const handleLogin = (username) => {
     setLoggedIn(true);
