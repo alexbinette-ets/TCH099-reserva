@@ -1,5 +1,5 @@
 const express = require("express");
-const routesEmploye = require(__dirname + '/routes/routesEmploye');
+const routesEmploye = require(__dirname + '/routes/routesEmploye.js');
 const app = express();
 const cors = require('cors');
 const CONFIG = require("./utils/config.js");
