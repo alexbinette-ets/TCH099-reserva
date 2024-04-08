@@ -30,7 +30,6 @@ const Reservation = () => {
 
     return (
         <div className='Reservation'>
-            <button onClick={handleLogout}>Deconnection</button>
             <Calendar onChange={onChange} value={date} />
             {reservations && reservations.length > 0 ? (
                 <table className='ReservationTable'>
@@ -50,7 +49,7 @@ const Reservation = () => {
                     </tbody>
                 </table>
             ) :
-                <div className='CalendrierNull'> Aucune reservation pour cette date</div>}
+                <div className='CalendrierNull'> Aucune disponibilité pour cette date</div>}
         </div>
     );
 }

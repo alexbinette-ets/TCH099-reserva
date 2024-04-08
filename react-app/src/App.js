@@ -4,6 +4,7 @@ import Login from './Login';
 import HomePage from './HomePage';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Reservation from './Reservation';
+import TopBar from './TopBar';
 
 function App() {
   const [LoggedIn, setLoggedIn] = useState(true);
@@ -20,9 +21,13 @@ function App() {
 
     <Router>
       <div className="App">
-        <HomePage />
+        <TopBar />
         <div>
           <Switch>
+            <Route exact path="/">
+              <HomePage />
+            </Route>
+
             <Route exact path="/serveur">
               {LoggedIn ? (
                 <Calendrier onLogout={handleLogout} />
@@ -30,9 +35,11 @@ function App() {
                 <Login onLogin={handleLogin} />
               )}
             </Route>
-            <Route exact path="/">
-              <Reservation/>
+
+            <Route exact path="/reservation">
+              <Reservation />
             </Route>
+            
           </Switch>
         </div>
       </div>
