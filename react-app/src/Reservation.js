@@ -2,6 +2,7 @@ import Calendar from 'react-calendar';
 import { useEffect, useState } from "react";
 import 'react-calendar/dist/Calendar.css';
 import * as CONFIG from "./utils/config.js"
+import { Link } from 'react-router-dom';
 
 const Reservation = () => {
     const [date, setDate] = useState(new Date());
@@ -35,15 +36,19 @@ const Reservation = () => {
                 <table className='ReservationTable'>
                     <thead className='ReservationHead'>
                         <tr>
+                            <th>Date</th>
                             <th>Debut</th>
                             <th>Fin</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody className='ReservationBody'>
                         {reservations.map((reservation) => (
                             <tr key={reservation.numero_res}>
+                                <td className='ReservationTD'>{reservation.date}</td>
                                 <td className='ReservationTD'>{reservation.heure_debut}</td>
                                 <td className='ReservationTD'>{reservation.heure_fin}</td>
+                                <td className='ReservationTD'><Link to ='/formulaire?date=${reservation.date}&'><button>Réserver</button></Link></td>
                             </tr>
                         ))}
                     </tbody>
