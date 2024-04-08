@@ -11,7 +11,7 @@ const Login = ({ onLogin }) => {
         setIsLoading(true);
 
         try {
-            const response = await fetch('', {
+            const response = await fetch(`${CONFIG.API_URL}auth`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

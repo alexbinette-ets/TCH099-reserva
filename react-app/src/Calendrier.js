@@ -26,7 +26,6 @@ const Calendrier = ({ username, onLogout }) => {
       console.log("Year: ", year);
       console.log("Month: ", month);
       console.log("Day: ", day);
-      console.log(username);
 
       const url = `${CONFIG.API_URL}/dayreservations/${year}/${month}/${day}`;
 
@@ -48,28 +47,6 @@ const Calendrier = ({ username, onLogout }) => {
         });
     }
   }, [date]);
-
-  //changer id_Serveur_temporaire avec authentification
-  const [prenomServeur, setPrenomServeur] = useState(null);
-  const id_serveur_temporaire = "65f9dbc05b4102100d0fcdbe";
-
-  useEffect(() => {
-    // Effectuer la requête pour récupérer le prénom du serveur au montage du composant
-    const url2 = `${CONFIG.API_URL}/nomEmploye/${id_serveur_temporaire}`;
-    fetch(url2)
-      .then(res => {
-        if (!res.ok) {
-          throw new Error('Erreur lors de la récupération du prénom du serveur');
-        }
-        return res.json();
-      })
-      .then(data => {
-        setPrenomServeur(data); // Mise à jour de l'état avec le prénom du serveur
-      })
-      .catch(error => {
-        console.error('Erreur lors de la requête fetch:', error);
-      });
-  }, []); // Ce tableau vide indique que l'effet se déclenche uniquement au montage du composant
 
   return (
     <div className='Calendrier'>
@@ -102,7 +79,7 @@ const Calendrier = ({ username, onLogout }) => {
               </thead>
               <tbody className='CalendrierBody'>
                 {reservationsSalleManger.map((resSM) => (
-                  <tr key={resSM.numero_res} className={resSM.serveursDetails.serveur_id === id_serveur_temporaire ? 'serveurBrillance' : ''}>
+                  <tr key={resSM.numero_res} className={resSM.serveursDetails.prenom_serveur === username ? 'serveurBrillance' : ''}>
                   <td className='CalendrierTD'>{resSM.numero_res}</td>
                     <td className='CalendrierTD'>{resSM.heure_debut}</td>
                     <td className='CalendrierTD'>{resSM.heure_fin}</td>
@@ -145,7 +122,7 @@ const Calendrier = ({ username, onLogout }) => {
               </thead>
               <tbody className='CalendrierBody'>
                 {reservationsTerrasse.map((resTER) => (
-                  <tr key={resTER.numero_res} className={resTER.serveursDetails.serveur_id === id_serveur_temporaire ? 'serveurBrillance' : ''}>
+                  <tr key={resTER.numero_res} className={resTER.serveursDetails.prenom_serveur === username ? 'serveurBrillance' : ''}>
                     <td className='CalendrierTD'>{resTER.numero_res}</td>
                     <td className='CalendrierTD'>{resTER.heure_debut}</td>
                     <td className='CalendrierTD'>{resTER.heure_fin}</td>

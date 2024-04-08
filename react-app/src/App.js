@@ -7,7 +7,7 @@ import Reservation from './Reservation';
 import TopBar from './TopBar';
 
 function App() {
-  const [LoggedIn, setLoggedIn] = useState(true);
+  const [LoggedIn, setLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
 
   const handleLogin = (username) => {
