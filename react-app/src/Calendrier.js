@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import 'react-calendar/dist/Calendar.css';
 import * as CONFIG from './utils/config.js'
 
-const Calendrier = ({ onLogout }) => {
+const Calendrier = ({ username, onLogout }) => {
   //La vraie situation sera un fetch des données de l'authentification (serveur id), et apres avec cette données on active une fonction highlight!
   const id_serveur_temporaire = "65f9dbc05b4102100d0fcdbe";
   const [date, setDate] = useState(new Date());
@@ -126,7 +126,7 @@ const Calendrier = ({ onLogout }) => {
                     <td className='CalendrierTD'>{resTER.specification}</td>
                     <td className='CalendrierTD'>{resTER.nom_section}</td>
                     <td className='CalendrierTD'>
-                    <p>{resTER.serveursDetails.prenom_serveur}</p>
+                      <p>{resTER.serveursDetails.prenom_serveur}</p>
                     </td>
                     <td className='CalendrierTD'>{resTER.prenom_client}</td>
                     <td className='CalendrierTD'>{resTER.nom_client}</td>

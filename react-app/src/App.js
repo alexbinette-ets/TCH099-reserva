@@ -8,12 +8,15 @@ import TopBar from './TopBar';
 
 function App() {
   const [LoggedIn, setLoggedIn] = useState(true);
+  consts [username, setUsername] = useState('');
 
-  const handleLogin = () => {
+  const handleLogin = (username) => {
     setLoggedIn(true);
+    setUsername(username);
   }
 
   const handleLogout = () => {
+    setUsername('');
     setLoggedIn(false);
   }
 
@@ -30,7 +33,7 @@ function App() {
 
             <Route exact path="/serveur">
               {LoggedIn ? (
-                <Calendrier onLogout={handleLogout} />
+                <Calendrier username={username} onLogout={handleLogout} />
               ) : (
                 <Login onLogin={handleLogin} />
               )}

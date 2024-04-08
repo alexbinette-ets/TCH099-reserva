@@ -20,7 +20,7 @@ const Login = ({ onLogin }) => {
             });
 
             if (response.ok) {
-                onLogin();
+                onLogin(username);
             } else {
                 console.error('Authentication failed');
             }
