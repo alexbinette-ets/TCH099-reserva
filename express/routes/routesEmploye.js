@@ -264,4 +264,35 @@ router.get('/test', (req, res) => {
   res.json({ mssg: 'Route de test fonctionnelleAYAY !' });
 });
 
+router.post('/auth', async (req,res) =>{
+try {
+  const { username, password } = req.body;
+  console.log(req.body);
+  console.log(`Username:${username}`);  
+  console.log(`Password:${password}`);  
+
+  const user = await req.app.locals.db.collection("Serveur").findOne({
+  prenom_serveur : username,
+  password: password
+  });
+  console.log(user); 
+  if (user) {
+
+      // Return an "OK" response
+      res.status(200).send(user);
+  }
+  else {
+      // Return an error response
+      res.status(401).send('username ou mot de passe erroné');
+    }
+  }
+catch(err) {
+    // Handle any errors that occurred
+    console.error(err);
+    res.status(500).send('Erreur serveur interne');
+
+  }
+
+}) 
+
 module.exports = router
