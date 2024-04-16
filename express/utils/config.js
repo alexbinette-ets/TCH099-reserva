@@ -1,4 +1,4 @@
 
 module.exports = {
-  DB_URL : "mongodb://mongo-reserva.canadaeast.azurecontainer.io"
+  DB_URL : "mongodb://admin:VFanRE64K6MY8UH1isou@mongo-reserva.canadaeast.azurecontainer.io"
 }
