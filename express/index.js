@@ -1,5 +1,6 @@
 const express = require("express");
 const routesEmploye = require(__dirname + '/routes/routesEmploye.js');
+const routesClients = require(__dirname + '/routes/routesClients.js');
 const app = express();
 const cors = require('cors');
 const CONFIG = require("./utils/config.js");
@@ -45,7 +46,6 @@ finally {
 //on run la connection DB
 run().catch(console.dir);
 //middleware quon va utiliser plus tard pour authentification
-//pasfinisppapp.use(express.json())
 app.use(express.json());
 app.use((req,res,next) => {
   console.log(req.path,req.method)
@@ -65,9 +65,9 @@ process.on('SIGINT', async () => {
   }});
 
 
-
 //routes
 app.use('/api/employe', routesEmploye);
+app.use('/api/client', routesClients);
 
 app.get('/', function(req, res) {
   res.send('hello world');
