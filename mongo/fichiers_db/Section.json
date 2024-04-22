@@ -4,29 +4,134 @@
         "nom":"A",
         "ouverture":true,
         "nb_serveurs":2,
-        "type":"terrasse"
+        "type":"terrasse",
+        "tables": [
+            {
+            "numero_table":1,
+            "nb_pers_min":2,
+            "nb_pers_max":4,
+            "dispo1_id":{"$oid":"65f9f8a95b4102100d0fce09"},
+            "dispo2_id":{"$oid":"65f9f8a95b4102100d0fce0a"},
+            "dispo3_id":{"$oid":"65f9f8a95b4102100d0fce0b"},
+            "dispo4_id":{"$oid":"65f9f8a95b4102100d0fce0c"}
+        },
+        {
+            "_id":{"$oid":"65f9e06c5b4102100d0fcdf6"},
+            "numero_table":5,
+            "nb_pers_min":2,
+            "nb_pers_max":4,
+            "dispo1_id":{"$oid":"65f9f8a95b4102100d0fce14"},
+            "dispo2_id":{},
+            "dispo3_id":{},
+            "dispo4_id":{}
+        }
+        ]
     },
     {
         "_id":{"$oid":"65f9df255b4102100d0fcde8"},
         "nom":"B",
         "ouverture":false,
         "nb_serveurs":3,
-        "type":"terrasse"
-
+        "type":"terrasse",
+        "tables": [
+            {
+            "_id":{"$oid":"65f9e04e5b4102100d0fcdf0"},
+            "numero_table":2,
+            "nb_pers_min":2,
+            "nb_pers_max":4,
+            "dispo1_id":{"$oid":"65f9f8a95b4102100d0fce0d"},
+            "dispo2_id":{"$oid":"65f9f8a95b4102100d0fce0e"},
+            "dispo3_id":{"$oid":"65f9f8a95b4102100d0fce0f"},
+            "dispo4_id":{"$oid":"65f9f8a95b4102100d0fce10"}
+        },
+        {
+            "_id":{"$oid":"65f9e0785b4102100d0fcdf8"},
+            "numero_table":6,
+            "nb_pers_min":2,
+            "nb_pers_max":4,
+            "dispo1_id":{"$oid":"65f9f8a95b4102100d0fce15"},
+            "dispo2_id":{},
+            "dispo3_id":{},
+            "dispo4_id":{}
+        },
+        {
+            "_id":{"$oid":"65f9e0985b4102100d0fcdfe"},
+            "numero_table":9,
+            "nb_pers_min":4,
+            "nb_pers_max":6,
+            "dispo1_id":{"$oid":"65f9f8a95b4102100d0fce19"},
+            "dispo2_id":{},
+            "dispo3_id":{},
+            "dispo4_id":{}
+        } 
+    ]
     },
     {
         "_id":{"$oid":"65f9df3a5b4102100d0fcdea"},
         "nom":"C",
         "ouverture":true,
         "nb_serveurs":3,
-        "type":"salle à manger"
-        
+        "type":"salle à manger",
+        "tables": [
+            {
+            "_id":{"$oid":"65f9e0585b4102100d0fcdf2"},
+            "numero_table":3,
+            "nb_pers_min":4,
+            "nb_pers_max":6,
+            "dispo1_id":{"$oid":"65f9f8a95b4102100d0fce11"},
+            "dispo2_id":{"$oid":"65f9f8a95b4102100d0fce12"},
+            "dispo3_id":{},
+            "dispo4_id":{}
+        },
+        {
+            "_id":{"$oid":"65f9e08d5b4102100d0fcdfc"},
+            "numero_table":8,
+            "nb_pers_min":6,
+            "nb_pers_max":8,
+            "dispo1_id":{"$oid":"65f9f8a95b4102100d0fce17"},
+            "dispo2_id":{"$oid":"65f9f8a95b4102100d0fce18"},
+            "dispo3_id":{},
+            "dispo4_id":{}
+        }
+        ]   
     },
     {
         "_id":{"$oid":"65f9df4c5b4102100d0fcdec"},
         "nom":"D",
         "ouverture":true,
         "nb_serveurs":2,
-        "type":"salle à manger"
+        "type":"salle à manger",
+        "tables": [
+            {
+            "_id":{"$oid":"65f9e0625b4102100d0fcdf4"},
+            "numero_table":4,
+            "nb_pers_min":4,
+            "nb_pers_max":6,
+            "dispo1_id":{"$oid":"65f9f8a95b4102100d0fce13"},
+            "dispo2_id":{},
+            "dispo3_id":{},
+            "dispo4_id":{}
+        },
+        {
+            "_id":{"$oid":"65f9e0835b4102100d0fcdfa"},
+            "numero_table":7,
+            "nb_pers_min":6,
+            "nb_pers_max":8,
+            "dispo1_id":{"$oid":"65f9f8a95b4102100d0fce16"},
+            "dispo2_id":{},
+            "dispo3_id":{},
+            "dispo4_id":{}
+        },
+        {
+            "_id":{"$oid":"65f9e0be5b4102100d0fce00"},
+            "numero_table":10,
+            "nb_pers_min":4,
+            "nb_pers_max":6,
+            "dispo1_id":{"$oid":"65f9f8a95b4102100d0fce1a"},
+            "dispo2_id":{"$oid":"65f9f8a95b4102100d0fce1b"},
+            "dispo3_id":{},
+            "dispo4_id":{}
+        }
+    ]
     }
 ]

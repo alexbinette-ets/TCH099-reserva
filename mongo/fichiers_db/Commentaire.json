@@ -3,28 +3,33 @@
         "_id":{"$oid":"65fa01f35b4102100d0fce14"},
         "cote":3,
         "commentaire":"La serveuse avait l'air bete...",
-        "client_id":{"$oid":"65fa01b45b4102100d0fce1c"}
+        "prenom_client":"Alejandro",
+        "nom_client": "Gonzalez"
     },
     {   "_id":{"$oid":"65fa02055b4102100d0fce16"},
         "cote":5,
         "commentaire":"Excellent service, très attentionné !",
-        "client_id":{"$oid":"65fa01b35b4102100d0fce1a"}
+        "prenom_client":"Minho",
+        "nom_client": "Kim"
     },
     {
         "_id":{"$oid":"65fa020f5b4102100d0fce18"},
         "cote":2,
         "commentaire":"Service lent et désorganisé.",
-        "client_id":{"$oid":"65fa01b25b4102100d0fce18"}
+        "prenom_client":"Huong",
+        "nom_client":"Nguyen"
     },
     {   "_id":{"$oid":"65fa02195b4102100d0fce1a"},
         "cote":4,
         "commentaire":"Serveur sympathique et efficace.",
-        "client_id":{"$oid":"65fa01b15b4102100d0fce16"}
+        "prenom_client":"Anna",
+        "nom_client":"Kowalski"
     },
     {
         "_id":{"$oid":"65fa02255b4102100d0fce1c"},
         "cote":1,
         "commentaire":"Attente interminable, service médiocre.",
-        "client_id":{"$oid":"65fa01b05b4102100d0fce14"}
+        "prenom_client":"Carlos",
+        "nom_client":"Lopez"
     }
 ]
