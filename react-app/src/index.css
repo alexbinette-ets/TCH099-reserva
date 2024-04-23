@@ -45,7 +45,7 @@ code {
   border-collapse: collapse;
   grid-area: table;
   margin: 0 auto;
-  display: block;  
+  display: block;
   margin-top: 10px;
 }
 
@@ -70,25 +70,23 @@ code {
   background-color: rgba(255, 174, 0, 0.489);
 }
 
-.CalendrierTable
-{
+.CalendrierTable {
   border-collapse: collapse;
 }
 
-.titreTableau
-{
+.titreTableau {
   caption-side: left;
-      font-weight: bold; 
-      font-size: 1.2em; 
-      margin-bottom: 10px; 
-      text-align: left;
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  text-align: left;
 }
 
 .bienvenueServeur {
-  font-weight: bold; 
-  font-size: 1.2em; 
+  font-weight: bold;
+  font-size: 1.2em;
   margin-bottom: 10px;
-  position: relative; 
+  position: relative;
   left: 0;
 }
 
@@ -149,13 +147,35 @@ code {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   font-size: 20px;
 }
-.HomePageContact{
+
+.HomePageContact {
   margin-top: auto;
   text-align: center;
   background-color: #333;
   color: white;
   padding: 10px;
-  
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  /* Three columns taking equal space */
+  align-items: center;
+  /* Center items vertically */
+}
+
+.HomePageInfo {
+  text-align: center;
+  /* Align text to the center */
+}
+
+.HomePageComment {
+  text-align: center;
+  background-color: #555;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  justify-self: end;
 }
 
 /*----------------------Reservation---------------------------*/
@@ -180,7 +200,7 @@ code {
   margin: 0 auto;
 }
 
-.ReservationParametre select{
+.ReservationParametre select {
   margin: 0 auto;
   display: block;
 }
