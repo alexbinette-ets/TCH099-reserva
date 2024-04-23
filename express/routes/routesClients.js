@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const { MongoClient } = require('mongodb');
 const { ObjectId } = require('mongodb');
 
 
@@ -26,7 +25,6 @@ router.get('/dayGetDispos/:annee/:numMois/:jour/:section/:nbPers', async (req, r
     try {
         const collectionDisponibilite = req.app.locals.db.collection("Disponibilite");
         const collectionReservation = req.app.locals.db.collection("Reservation");
-        const collectionTable = req.app.locals.db.collection("Table");
         const collectionSection = req.app.locals.db.collection("Section");
 
     //GET tt les dispos de la date en parametres
@@ -60,10 +58,11 @@ router.get('/dayGetDispos/:annee/:numMois/:jour/:section/:nbPers', async (req, r
       if (section === "sm") {
       const sections = await collectionSection.find({ type : "salle à manger" }).toArray();
       for (const section of sections) {
-        const tables = await collectionTable.find({section_id : section._id }).toArray();
-        for (const table of tables) {
-          const dispoIdFields = Object.keys(table).filter(field => field.startsWith('dispo') && field.endsWith('_id'));
-          for (const numDispoId of dispoIdFields)
+        const tables = section.tables;
+        if (!tables) continue;
+            for (const table of tables) {
+              const dispoIdFields = Object.keys(table).filter(field => field.startsWith('dispo') && field.endsWith('_id'));
+              for (const numDispoId of dispoIdFields) 
           {
             const disponibilite = disponibilitesNonReservees.find(dispo => dispo._id.toString() === table[numDispoId].toString() 
             && nbPersonnes >= table.nb_pers_min &&
@@ -79,11 +78,12 @@ router.get('/dayGetDispos/:annee/:numMois/:jour/:section/:nbPers', async (req, r
       {
         const sections = await collectionSection.find({ type : "terrasse" }).toArray();
         for (const section of sections) {
-          const tables = await collectionTable.find({section_id : section._id }).toArray();
-          for (const table of tables) {
-            const dispoIdFields = Object.keys(table).filter(field => field.startsWith('dispo') && field.endsWith('_id'));
-            for (const numDispoId of dispoIdFields)
-            {
+          const tables = section.tables;
+          if (!tables) continue;
+              for (const table of tables) {
+                const dispoIdFields = Object.keys(table).filter(field => field.startsWith('dispo') && field.endsWith('_id'));
+                for (const numDispoId of dispoIdFields) 
+                {
               const disponibilite = disponibilitesNonReservees.find(dispo => dispo._id.toString() === table[numDispoId].toString() 
             && nbPersonnes >= table.nb_pers_min &&
             nbPersonnes <= table.nb_pers_max);
@@ -119,6 +119,12 @@ router.get('/dayGetDispos/:annee/:numMois/:jour/:section/:nbPers', async (req, r
       res.json(disposVidesDuJour);
 }
 );
+
+
+//ROUTE GET COMMENTAIRES DES CLIENTS
+
+
+
 
 
 

@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const { MongoClient } = require('mongodb');
 const { ObjectId } = require('mongodb');
 
 //?ligne qui donne erreur const fetch = require('node-fetch');
@@ -28,36 +27,8 @@ router.get('/date', (req, res) => {
 });
 
 
-//GET calendrier
-router.get('/calendrier', async (req, res) => {
-  try {
-    //changer url ici
-    const response = await fetch('http://localhost:5000/api/employe/date');
-    const data = await response.json();
-    const { numMois, annee, nomMois } = data;
 
-    //calcul nb jours
-    let nbJours;
-    if (numMois === 2) {
-      nbJours = (annee % 4 === 0 && (annee % 100 !== 0 || annee % 400 === 0)) ? 29 : 28;
-    } else if (['1', '3', '5', '7', '8', '10', '12'].includes(numMois)) {
-      nbJours = 31;
-    } else {
-      nbJours = 30;
-    }
-    const infosDateCalendrierJSON = {
-      numMois,
-      annee,
-      nomMois,
-      nbJours
-    }
-    res.json(infosDateCalendrierJSON);
-  }
-  catch (erreur) {
-    console.error(erreur);
-    res.status(500).json({ mssg: "Erreur récupération données" });
-  }
-});
+
 
 
 //GET liste reservation de la journee
@@ -78,7 +49,6 @@ router.get('/dayreservations/:annee/:numMois/:jour', async (req, res) => {
   try {
     const collectionDisponibilite = req.app.locals.db.collection("Disponibilite");
     const collectionReservation = req.app.locals.db.collection("Reservation");
-    const collectionTable = req.app.locals.db.collection("Table");
     const collectionSection = req.app.locals.db.collection("Section");
     const collectionClient = req.app.locals.db.collection("Client");
     const collectionServeur = req.app.locals.db.collection("Serveur");
@@ -90,28 +60,27 @@ router.get('/dayreservations/:annee/:numMois/:jour', async (req, res) => {
         $lt: new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1)
       }
     }).toArray();
-    console.log("Disponibilités trouvées :", disponibilites);
+    //console.log("Disponibilités trouvées :", disponibilites);
 
     if (disponibilites.length === 0) {
       return res.status(404).json({ message: "Aucune disponibilité trouvée pour la date spécifiée" });
     }
 
     let reservationDetails = {};
-    let tableDetails = {};
     let sectionDetails = {};
     let clientDetails = {};
     let serveursDetails = {};
 
     for (const disponibilite of disponibilites) {
       const { _id, timestamp_debut, timestamp_fin } = disponibilite;
-      console.log("ID DISPONIBILITÉ TROUVÉE : " + disponibilite._id);
+      //console.log("ID DISPONIBILITÉ TROUVÉE : " + disponibilite._id);
 
       const reservation = await collectionReservation.findOne({
         dispo_id: disponibilite._id
       });
 
       if (reservation) {
-        console.log("Reservation trouvée pour cette disponibilite")
+        //console.log("Reservation trouvée pour cette disponibilite")
         reservationDetails = {
           numero_res: reservation.numero_res,
           nb_sieges: reservation.nb_sieges,
@@ -119,31 +88,48 @@ router.get('/dayreservations/:annee/:numMois/:jour', async (req, res) => {
 
         };
       } else {
-        console.log("Aucune réservation trouvée pour cette disponibilité");
+        //console.log("Aucune réservation trouvée pour cette disponibilité");
         continue;
       }
       const { numero_res, nb_sieges, specification } = reservationDetails;
 
+//===============================================
+//===============================================
+//===============================================
+//===============================================
+let tableCorrespondante = null;
 
-      let tableCorrespondante = null;
-      const tables = await collectionTable.find({}).toArray();
+const sections = await collectionSection.find({}).toArray();
+for (const section of sections) {
+  const tables = section.tables;
+  if (!tables) continue;
       for (const table of tables) {
         const dispoIdFields = Object.keys(table).filter(field => field.startsWith('dispo') && field.endsWith('_id'));
-        console.log(dispoIdFields);
-
+        //console.log(dispoIdFields);
         for (const numDispoId of dispoIdFields) {
           const valeurDispoId = table[numDispoId];
           const disponibiliteIdString = disponibilite._id.toString();
           const valeurDispoIdString = valeurDispoId.toString();
           if (valeurDispoIdString === disponibiliteIdString) {
             tableCorrespondante = table;
+            if (section) {
+              sectionDetails = {
+                nom: section.nom,
+                type: section.type,
+              };
+            }
+            else {
+              //console.log("ERREUR : Aucune section trouvée pour cette disponibilité");
+              continue;
+            }
             break;
           }
         }
       }
-
+    }
+      const { nom: nom_section, type: type_section } = sectionDetails;
       const table = tableCorrespondante;
-      console.log("table correspondante: " + tableCorrespondante);
+      //console.log("table correspondante: " + tableCorrespondante);
 
       if (table) {
         tableDetails = {
@@ -155,25 +141,10 @@ router.get('/dayreservations/:annee/:numMois/:jour', async (req, res) => {
         continue;
       }
       const { numero_table } = tableDetails;
-
-
-      const section = await collectionSection.findOne({ _id: table.section_id });
-      if (section) {
-        const serveursIds = [];
-        for (let i = 1; section[`serveur${i}_id`]; i++) {
-          serveursIds.push(section[`serveur${i}_id`]);
-        }
-        sectionDetails = {
-          nom: section.nom,
-          type: section.type,
-          serveursIds: serveursIds
-        };
-      }
-      else {
-        console.log("ERREUR : Aucune section trouvée pour cette disponibilité");
-        continue;
-      }
-      const { nom: nom_section, type: type_section } = sectionDetails;
+//===============================================
+//===============================================
+//===============================================
+//===============================================
 
       //Récupération des infos du serveurs pour afficher + highlight, manque gestion cas erreurs NULL
       const serveurs = await collectionServeur.find({}).toArray();
@@ -189,7 +160,7 @@ router.get('/dayreservations/:annee/:numMois/:jour', async (req, res) => {
           break;
         }
         else {  
-          console.log("Ce serveur n'est pas dans la réservation : " + serveur);
+          //console.log("Ce serveur n'est pas dans la réservation : " + serveur);
           continue;
         }
       }
@@ -231,7 +202,7 @@ router.get('/dayreservations/:annee/:numMois/:jour', async (req, res) => {
     }
 
   }
-
+  
   catch (error) {
     console.error("Erreur lors de la requete!:", error);
     res.status(500).json({ error: "Erreur lors de la requete!" })
