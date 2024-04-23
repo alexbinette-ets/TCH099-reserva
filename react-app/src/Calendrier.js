@@ -48,6 +48,28 @@ const Calendrier = ({ username, onLogout }) => {
     }
   }, [date]);
 
+  const handleDelete = (reservationId) => {
+    const url = `${CONFIG.API_URL}/deleteReservation/${reservationId}`;
+
+    fetch(url, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => {
+        if (response.ok) {
+            setReservations(prevReservations => prevReservations.filter(reservation => reservation.id !== reservationId));
+            console.log('Reservation deleted successfully');
+        } else {
+            console.error('Failed to delete reservation');
+        }
+    })
+    .catch(error => {
+        console.error('Error deleting reservation:', error);
+    });
+};
+
   return (
     <div className='Calendrier'>
       <div>
@@ -67,14 +89,14 @@ const Calendrier = ({ username, onLogout }) => {
                   <th>Num Reservation</th>
                   <th>Debut</th>
                   <th>Fin</th>
-                  <th>Num Table</th>
-                  <th>Nb Sieges</th>
+                  <th>Table</th>
+                  <th>Sieges</th>
                   <th>Specification</th>
-                  <th>Nom Section</th>
-                  <th>Nom Serveur</th>
-                  <th>Prenom Client</th>
-                  <th>Nom Client</th>
-                  <th>Telephone Client</th>
+                  <th>Section</th>
+                  <th>Serveur</th>
+                  <th>Client</th>
+                  <th></th>
+                  <th>Telephone</th>
                 </tr>
               </thead>
               <tbody className='CalendrierBody'>
@@ -95,6 +117,7 @@ const Calendrier = ({ username, onLogout }) => {
                     <td className='CalendrierTD'>{resSM.prenom_client}</td>
                     <td className='CalendrierTD'>{resSM.nom_client}</td>
                     <td className='CalendrierTD'>{resSM.telephone}</td>
+                    <td className='CalendrierTD'><button onClick={() => handleDelete(resSM.numero_res)}>Supprimer</button></td>
                   </tr>
                 ))}
               </tbody>
@@ -107,17 +130,17 @@ const Calendrier = ({ username, onLogout }) => {
               <caption className="titreTableau">Terrasse</caption>
               <thead className='CalendrierHead'>
                 <tr>
-                  <th>Num Reservation</th>
+                <th>Num Reservation</th>
                   <th>Debut</th>
                   <th>Fin</th>
-                  <th>Num Table</th>
-                  <th>Nb Sieges</th>
+                  <th>Table</th>
+                  <th>Sieges</th>
                   <th>Specification</th>
-                  <th>Nom Section</th>
-                  <th>Nom Serveur</th>
-                  <th>Prenom Client</th>
-                  <th>Nom Client</th>
-                  <th>Telephone Client</th>
+                  <th>Section</th>
+                  <th>Serveur</th>
+                  <th>Client</th>
+                  <th></th>
+                  <th>Telephone</th>
                 </tr>
               </thead>
               <tbody className='CalendrierBody'>
@@ -136,6 +159,8 @@ const Calendrier = ({ username, onLogout }) => {
                     <td className='CalendrierTD'>{resTER.prenom_client}</td>
                     <td className='CalendrierTD'>{resTER.nom_client}</td>
                     <td className='CalendrierTD'>{resTER.telephone}</td>
+                    <td className='CalendrierTD'><button onClick={() => handleDelete(resTER.numero_res)}>Supprimer</button></td>
+
                   </tr>
                 ))}
               </tbody>
