@@ -6,7 +6,7 @@ const TopBar = () => {
 </a>
             <div className="TopBarLinks">
                 <a href="http://localhost:3000/menu">Menu</a>
-                <a href="http://localhost:3000/reservation">Reserver</a>
+                <a href="http://localhost:3000/reservation">Réserver</a>
             </div>
         </div>
      );
