@@ -1,6 +1,8 @@
 const express = require("express");
 const routesEmploye = require(__dirname + '/routes/routesEmploye.js');
 const routesClients = require(__dirname + '/routes/routesClients.js');
+const routesAdmin = require(__dirname + '/routes/routesAdmin.js');
+
 const app = express();
 const cors = require('cors');
 const CONFIG = require("./utils/config.js");
@@ -52,6 +54,24 @@ app.use((req,res,next) => {
   next()
   })
 
+  //Insertion des scripts dans index.js
+  /*const updateProcess = spawn('node', ['updateScript.js']);
+
+  updateProcess.stdout.on('data', (data) => {
+    console.log(`stdout: ${data}`);
+  });
+  
+  updateProcess.stderr.on('data', (data) => {
+    console.error(`stderr: ${data}`);
+  });
+  
+  updateProcess.on('close', (code) => {
+    console.log(`Le processus de mise à jour s'est terminé avec le code ${code}`);
+  });
+*/
+
+
+
 //on attend que express ferme pour fermer la connection à DB
 process.on('SIGINT', async () => {
   try {
@@ -68,7 +88,11 @@ process.on('SIGINT', async () => {
 //routes
 app.use('/api/employe', routesEmploye);
 app.use('/api/client', routesClients);
+app.use('/api/admin', routesAdmin);
+
 
 app.get('/', function(req, res) {
   res.send('hello world');
 });
+
+module.exports = { app, client };

@@ -5,32 +5,6 @@ const { ObjectId } = require('mongodb');
 //?ligne qui donne erreur const fetch = require('node-fetch');
 
 
-//GET infos date du jour
-router.get('/date', (req, res) => {
-  const dateActuelle = new Date();
-  //Les mois commencent à 0
-  const numMois = dateActuelle.getMonth() + 1;
-  const annee = dateActuelle.getFullYear();
-  const jour = dateActuelle.getDate();
-
-  //mois en string
-  const options = { month: 'long' };
-  const nomMois = dateActuelle.toLocaleDateString('fr-FR', options);
-  const infosDateActuelleJSON =
-  {
-    jour,
-    numMois,
-    annee,
-    nomMois
-  }
-  res.json(infosDateActuelleJSON);
-});
-
-
-
-
-
-
 //GET liste reservation de la journee
 router.get('/dayreservations/:annee/:numMois/:jour', async (req, res) => {
   const annee = parseInt(req.params.annee);
