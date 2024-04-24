@@ -1,8 +1,22 @@
 const { app, client } = require('./index.js');
 const { ObjectId } = require('mongodb');  // Assurez-vous d'importer ObjectId
+const fs = require('fs');
 
+async function createJsonFileWithDispos() {
+    try {
+        const dispos = await generateDispos2mois();
+        //const jsonData = JSON.stringify(dispos, null, 2); // Convertir l'objet en chaîne JSON avec indentation
 
-
+        fs.writeFile('testtest.json', dispos, (err) => {
+            if (err) {
+                throw err;
+            }
+            console.log('Le fichier JSON "dispos.json" a été créé avec succès.');
+        });
+    } catch (error) {
+        console.error("Une erreur est survenue lors de la création du fichier JSON :", error);
+    }
+}
 async function testGenerateDispos2mois() {
   try {
     const dispos = await generateDispos2mois();
@@ -36,6 +50,7 @@ async function generateDispos2mois() {
   joursAGenerer += nbJoursMoisSuivant;
   
   
+  for (let numTable = 1; numTable <= nombreTables; numTable++) {
   for (let i = jour; i <= jour + joursAGenerer - 1; i++) {
     let mois, annee;
     
@@ -53,9 +68,9 @@ async function generateDispos2mois() {
 
 
 
-    for (let numTable = 1; numTable <= nombreTables; numTable++) {
+    
       for (let heure = 18; heure < 22; heure++) {
-        const objectId = new ObjectId();
+        //const objectId = new ObjectId();
 
         const dateDebut = new Date(annee, mois - 1, jourCourant, heure);
         const dateFin = new Date(annee, mois - 1, jourCourant, heure + 1);
@@ -67,17 +82,24 @@ async function generateDispos2mois() {
         
         
         dispos2mois.push({
-          _id: objectId,
+          //_id: objectId,
           timestamp_debut: localDateDebut,
           timestamp_fin: localDateFin
         });
       }
   }}
-  
-  return dispos2mois;
+const jsonData = JSON.stringify(dispos2mois, dateToMongoDBDate, 2);
+  return jsonData;
   
 }
 
+
+function dateToMongoDBDate(key, value) {
+  if (value instanceof Date) {
+      return { "$date": value.toISOString() };
+  }
+  return value;
+}
 function getNbJoursMois(numMois, annee) {
   let nbJours;
 
@@ -116,7 +138,8 @@ async function insererDansDb(){
 }
 }
 
-insererDansDb();
+//insererDansDb();
 //testGenerateDispos2mois();
+createJsonFileWithDispos();
 
 

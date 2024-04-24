@@ -1,2 +1,13 @@
 # Exclue le fichier de node_modules dans les sous-dossiers
 */node_modules/
+express/table1.json
+express/table10.json
+express/table2.json
+express/table3.json
+express/table4.json
+express/table5.json
+express/table6.json
+express/table7.json
+express/table8.json
+express/table9.json
+mongo/fichiers_db/Sections.json

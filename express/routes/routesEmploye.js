@@ -6,6 +6,7 @@ const { ObjectId } = require('mongodb');
 
 
 //GET liste reservation de la journee
+//garder pour présentation
 router.get('/dayreservations/:annee/:numMois/:jour', async (req, res) => {
   const annee = parseInt(req.params.annee);
   const numMois = parseInt(req.params.numMois);
@@ -240,4 +241,89 @@ catch(err) {
 
 }) 
 
+
+
+//GET DAY RESERV 2.0!
+router.get('/dayreservations2/:annee/:numMois/:jour', async (req, res) => {
+  const annee = parseInt(req.params.annee);
+  const numMois = parseInt(req.params.numMois);
+  const jour = parseInt(req.params.jour);
+
+  //Sassurer que par exemple 2024/3/4 deviennet 2024-03-04
+  const dateString = `${annee.toString()}-${numMois.toString().padStart(2, '0')}-${jour.toString().padStart(2, '0')}`;
+  const date = new Date(dateString);
+  console.log(date);
+
+  //si je le met plus loin ca veut pas
+  const reservationsDuJour = [];
+  try {
+    
+    const gte = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    const lt = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
+    
+    const collectionSections = req.app.locals.db.collection("Sections");
+    const sections = await collectionSections.find({}).toArray();
+
+    // Parcourez chaque document de la collection "sections"
+    sections.forEach(section => {
+        // Accédez à chaque table dans la section
+        section.tables.forEach(table => {
+               
+            // Accédez aux disponibilités de chaque table
+            table.Disponibilites.forEach(disponibilite => {
+              
+              
+              if (disponibilite.timestamp_debut >= gte && disponibilite.timestamp_debut < lt)
+              {
+                if (disponibilite.Reservation && Object.keys(disponibilite.Reservation).length > 0) {
+                  
+
+                  const numero_res = disponibilite.Reservation.numero_res;
+                  console.log(numero_res);
+                  const numero_table = table.numero_table;
+                  console.log(numero_table);
+                  const nb_sieges = disponibilite.Reservation.nb_sieges;
+                  console.log(nb_sieges);
+                  const specification = disponibilite.Reservation.specification;
+                  console.log(specification);
+                  const nom_section = section.nom;
+                  console.log(nom_section);
+                  const type_section = section.type;
+                  console.log(type_section);
+                  let serveursDetails = {};
+                  serveursDetails = {
+                    prenom_serveur: disponibilite.Reservation.prenom_serveur,
+                  };
+                  console.log(serveursDetails.prenom_serveur);
+                  const prenom_client = disponibilite.Reservation.Client.prenom_client;
+                  console.log(prenom_client);
+                  const nom_client = disponibilite.Reservation.Client.nom_client;
+                  console.log(nom_client);
+                  const telephone = disponibilite.Reservation.Client.telephone;
+                  console.log(telephone);
+                  reservationsDuJour.push({
+                    date: new Date(disponibilite.timestamp_debut).toLocaleDateString(),
+                    heure_debut: new Date(disponibilite.timestamp_debut).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                    heure_fin: new Date(disponibilite.timestamp_fin).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                    numero_res,
+                    numero_table,
+                    nb_sieges,
+                    specification,
+                    nom_section,
+                    type_section,
+                    serveursDetails,
+                    prenom_client,
+                    nom_client,
+                    telephone,
+                  });
+                }
+
+                }
+              })})});}
+                
+              catch (error) {
+                console.error("Erreur lors de la requete!:", error);
+                res.status(500).json({ error: "Erreur lors de la requete!" })
+              };
+            });
 module.exports = router

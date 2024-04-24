@@ -5,6 +5,7 @@ const { ObjectId } = require('mongodb');
 
 //ROUTE GET TOUTE LA BD
 router.get('/wholebd', async (req, res) => {
+  console.log("JE SUIS RENTRÉ ICI");
   const db = req.app.locals.db;
   const collections = await db.listCollections().toArray();
   let reponseJSON = [];

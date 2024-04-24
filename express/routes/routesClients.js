@@ -100,13 +100,19 @@ router.get('/dayGetDispos/:annee/:numMois/:jour/:section/:nbPers', async (req, r
 
       //Transformer les dispos trouvées en heures
       for (const disponibilite of disposToPushFinal) {
-        const timestamp = disponibilite.timestamp_debut; 
-        const date = new Date(timestamp);
-        const heure = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    
+        const timestamp_debut = disponibilite.timestamp_debut; 
+        const timestamp_fin = disponibilite.timestamp_fin;
+
+        const date_timestamp_debut = new Date(timestamp_debut);
+        const date_timestamp_fin = new Date(timestamp_fin)
+
+        const heure_debut = date_timestamp_debut.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const heure_fin = date_timestamp_fin.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        const heures = [heure_debut, heure_fin];
         
-        if (!disposVidesDuJour.includes(heure)) {
-            disposVidesDuJour.push(heure);
+        if (!disposVidesDuJour.includes(heures)) {
+            disposVidesDuJour.push(heures);
         }
     }
 
@@ -122,7 +128,48 @@ router.get('/dayGetDispos/:annee/:numMois/:jour/:section/:nbPers', async (req, r
 
 
 //ROUTE GET COMMENTAIRES DES CLIENTS
+router.get('/commentaires', async (req, res) => {
 
+  let commentaires;
+  try {
+      const collectionCommentaire = req.app.locals.db.collection("Commentaire");
+    
+
+      commentaires = await collectionCommentaire.find({}).toArray();
+
+        if (commentaires.length === 0) {
+          return res.status(404).json({ message: "Aucune commentaire trouvé" });
+        }
+        else {
+          console.log("Commentaires trouvés dans BD");
+        }
+
+
+      }
+        catch (error) {
+          console.error("Erreur lors de la requete!:", error);
+          res.status(500).json({ error: "Erreur lors de la requete!" })
+        };
+        res.json(commentaires);
+      }
+);
+
+
+//POST COMMENTAIRES
+router.post('/commentaires', async (req, res) => {
+  
+  //fix les import et body
+  try {
+    const collectionCommentaire = req.app.locals.db.collection("Commentaire");
+    const nouveauCommentaire = req.body; // Supposons que le corps de la requête contient les données du nouveau commentaire
+    const result = await collectionCommentaire.insertOne(nouveauCommentaire);
+    console.log("Commentaire inséré avec succès dans la base de données :", result.insertedId);
+    res.status(201).json({ message: "Commentaire ajouté avec succès", commentaire: nouveauCommentaire });
+  } catch (error) {
+    console.error("Une erreur est survenue lors de l'insertion du commentaire :", error);
+    res.status(500).json({ error: "Erreur lors de l'insertion du commentaire" });
+  }
+});
 
 
 
