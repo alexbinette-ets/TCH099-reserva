@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom';
 const Reservation = () => {
     const [date, setDate] = useState(new Date());
     const [reservations, setReservations] = useState(null);
-    const [personnes, setPersonne] = useState('');
-    const [section, setSection] = useState('');
+    const [personnes, setPersonne] = useState(1);
+    const [section, setSection] = useState('ter');
 
     const onChange = date => {
         setDate(date);
@@ -32,7 +32,7 @@ const Reservation = () => {
             console.log("Month: ", month);
             console.log("Day: ", day);
 
-            const url = `${CONFIG.API_URL_CLIENT}/dayGetDispos/${year}/${month}/${day}/${section}/${personnes}`;
+            const url = `${CONFIG.API_URL_CLIENT}/dayGetDispos2/${year}/${month}/${day}/${section}/${personnes}`;
 
             fetch(url)
                 .then(res => res.json())
