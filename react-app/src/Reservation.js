@@ -68,6 +68,7 @@ const Reservation = () => {
             heure_fin: reservation.slice(-8)[1]
         };
         console.log(requestData);
+        
         fetch(url, {
             method: 'POST',
             headers: {
@@ -81,6 +82,7 @@ const Reservation = () => {
             })
             .catch((error) => {
                 console.error('Error:', error);
+                alert('Echec de reservation. Veuillez reesayer.');
             });
     };
 
