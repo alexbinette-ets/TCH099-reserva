@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Reservation from './Reservation';
 import TopBar from './TopBar';
 import Commentaire from './Commentaire';
+import Menu from './Menu.js'
 
 function App() {
   const [LoggedIn, setLoggedIn] = useState(false);
@@ -47,7 +48,10 @@ function App() {
             <Route exact path="/commentaire">
               <Commentaire />
             </Route>
-            
+           
+            <Route exact path="/menu">
+              <Menu />
+            </Route>
           </Switch>
         </div>
       </div>
