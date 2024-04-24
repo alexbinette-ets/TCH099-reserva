@@ -315,6 +315,10 @@ router.post('/reserver', async (req, res) =>{
     
     timestamp_propre = new Date(timestamp);
     console.log("timestamp_propre: " + timestamp_propre);
+
+    prenom_serv = generate_prenom_serveur();
+    id_reserv = generateNumeroRes();
+    
     await collectionSections.updateOne(
       {
         "type": section_propre,
@@ -323,10 +327,10 @@ router.post('/reserver', async (req, res) =>{
         $set: {
           //"tables.$[table].Disponibilites.$[disponibilite].Reservation": {
           "tables.$[table].Disponibilites.$[disponibilite].Reservation": {
-            "numero_res": generateNumeroRes(),
+            "numero_res": id_reserv,
             "nb_sieges": personnes_propre,
             "specification": allergies,
-            "prenom_serveur" : generate_prenom_serveur(),
+            "prenom_serveur" : prenom_serv,
             "Client": {
               "nom_client": nom,
               "prenom_client": prenom,
@@ -345,7 +349,7 @@ router.post('/reserver', async (req, res) =>{
         multi: false
       }).then((result)=> {
           console.log(result);
-          res.status(200).send('Ajout réussi')
+          res.status(200).send({"id_reserv":id_reserv});
         }).catch((err)=>{
           console.error("Erreur: "+ err);
           res.status(500).send('Erreur DB');
