@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 const Reservation = () => {
     const [date, setDate] = useState(new Date());
     const [reservations, setReservations] = useState(null);
-<<<<<<< HEAD
     const [personnes, setPersonne] = useState('');
     const [section, setSection] = useState('');
     const [nom, setNom] = useState('');
@@ -15,10 +14,6 @@ const Reservation = () => {
     const [email, setEmail] = useState('');
     const [tel, setTel] = useState('');
     const [allergies, setAllergies] = useState('');
-=======
-    const [personnes, setPersonne] = useState(1);
-    const [section, setSection] = useState('ter');
->>>>>>> a6e2003b7253598f17695c2a7263cc81bdab6f95
 
     const onChange = date => {
         setDate(date);
