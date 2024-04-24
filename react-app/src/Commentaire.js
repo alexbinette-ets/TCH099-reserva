@@ -59,34 +59,37 @@ const Commentaire = () => {
     return (
         <div className="Commentaire">
             <div className="CommentaireText">
-                Votre commentaire:
-                <br />
-                <textarea
-                    rows="4"
-                    cols="50"
-                    value={nouveau}
-                    onChange={(e) => setNouveau(e.target.value)}
-                />
-                Votre cote:
-                <select id="cote" onChange={HandleCote}>
-                    <option value="5">5/5</option>
-                    <option value="4">4/5</option>
-                    <option value="3">3/5</option>
-                    <option value="2">2/5</option>
-                    <option value="1">1/5</option>
-
-                </select>
+                <div className="CommentaireTextArea">
+                    Votre commentaire:
+                    <br />
+                    <textarea
+                        rows="4"
+                        cols="50"
+                        value={nouveau}
+                        onChange={(e) => setNouveau(e.target.value)}
+                    />
+                </div>
+                <div className="CommentaireCote">
+                    Votre cote:
+                    <select id="cote" onChange={HandleCote}>
+                        <option value="5">5/5</option>
+                        <option value="4">4/5</option>
+                        <option value="3">3/5</option>
+                        <option value="2">2/5</option>
+                        <option value="1">1/5</option>
+                    </select>
+                    <div className="CommentaireVide"></div>
+                </div>
             </div>
             <button onClick={handleEnvoiCommentaire} disabled={isPosting}>
                 {isPosting ? 'En envoi' : 'Envoyer'}
             </button>
-
             <div className="CommentaireList">
+                <br />
                 {commentaires.map((commentaire, index) => (
                     <div key={index}>
-                        ({commentaire.cote}/5) {commentaire.commentaire}
+                        <span className="CommentaireListCote">({commentaire.cote}/5)</span> {commentaire.commentaire}
                     </div>
-
                 ))}
             </div>
         </div>

@@ -257,3 +257,30 @@ table.table-menu > thead > tr {
 table.table-mnu > thead > tr > th{
   border: 1px solid black; padding: 10px; text-align: left;
 }
+
+/*----------------------Commentaire-------------------------*/
+.Commentaire{
+  margin: 20px;
+}
+.CommentaireText{
+  display: grid;
+  grid-template-areas:
+    "text cote vide";
+  grid-template-columns: 1fr 1fr 2fr;
+}
+
+.CommentaireTextArea{
+  grid-area: text;
+}
+.CommentaireCote{
+  grid-area: cote;
+}
+.CommentaireVide{
+  grid-area: vide;
+}
+.CommentaireList{
+  font-size:x-large;
+}
+.CommentaireListCote{
+  font-weight: bold;
+}
