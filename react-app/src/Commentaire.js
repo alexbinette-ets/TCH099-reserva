@@ -34,7 +34,7 @@ const Commentaire = () => {
     const handleEnvoiCommentaire = async () => {
         try {
             setIsPosting(true);
-            const url = `${CONFIG.API_URL_CLIENT}/commentaire/`;
+            const url = `${CONFIG.API_URL_CLIENT}/postCommentaire/`;
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
