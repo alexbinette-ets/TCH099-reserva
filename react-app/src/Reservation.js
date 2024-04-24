@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom';
 const Reservation = () => {
     const [date, setDate] = useState(new Date());
     const [reservations, setReservations] = useState(null);
-    const [personnes, setPersonne] = useState('');
-    const [section, setSection] = useState('');
+    const [personnes, setPersonne] = useState(1);
+    const [section, setSection] = useState('ter');
     const [nom, setNom] = useState('');
     const [prenom, setPrenom] = useState('');
     const [email, setEmail] = useState('');
