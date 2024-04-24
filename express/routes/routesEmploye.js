@@ -153,6 +153,43 @@ router.get('/dayreservations2/:annee/:numMois/:jour', async (req, res) => {
 //----------------------------------------------------------------
 //
 
+//
+//
+router.post('/supprimer-reservation', async (req, res) => {
+  try {
+      const { numero_res } = req.body;
+      console.log(numero_res);
+
+      const collectionSections = req.app.locals.db.collection("Sections");
+
+      const result = await collectionSections.updateOne(
+          {
+              "tables.Disponibilites.Reservation.numero_res": numero_res,
+          },
+          {
+              $unset: {
+                "tables.$[].Disponibilites.$[disponibilite].Reservation": ""
+              }
+          },
+          {
+              arrayFilters: [
+                { "disponibilite.Reservation.numero_res": {$eq: numero_res} }              ]
+          }
+      );
+
+      if (result.modifiedCount > 0) {
+          res.status(200).json({ message: `Réservation avec le numéro ${numero_res} supprimée avec succès.` });
+      } else {
+          res.status(404).json({ message: `Aucune réservation trouvée avec le numéro ${numero_res} pour la date ` });
+      }
+  } catch (error) {
+      console.error("Erreur lors de la suppression de la réservation :", error);
+      res.status(500).json({ message: "Une erreur est survenue lors de la suppression de la réservation." });
+  }
+});
+//
+//
+
 
 
 

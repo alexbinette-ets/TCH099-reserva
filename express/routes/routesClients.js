@@ -122,17 +122,23 @@ router.get('/dayGetDispos2/:annee/:numMois/:jour/:section/:nbPers', async (req, 
       const timestamp_debut = disponibilite.timestamp_debut;
       const timestamp_fin = disponibilite.timestamp_fin;
 
-      const date_timestamp_debut = new Date(timestamp_debut);
+      const heure_debut = timestamp_debut.getHours();
+      const heure_fin = timestamp_fin.getHours();
+      const heure_debut_string = heure_debut.toString() + ":00:00";
+      const heure_fin_string =heure_fin.toString() + ":00:00";
+
+
+      /*const date_timestamp_debut = new Date(timestamp_debut);
+      console.log(date_timestamp_debut.toString());
       const date_timestamp_fin = new Date(timestamp_fin)
+      console.log(date_timestamp_debut.toString());*/
 
-      const heure_debut = date_timestamp_debut.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      const heure_fin = date_timestamp_fin.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      
 
+const heures = [heure_debut_string, heure_fin_string];
 
-      const plage_horaire = `${heure_debut}-${heure_fin}`;
-
-      if (!disposVidesDuJour.includes(plage_horaire)) {
-        disposVidesDuJour.push(plage_horaire);
+      if (!disposVidesDuJour.includes(heures)) {
+        disposVidesDuJour.push(heures);
       }
     }
     res.json(disposVidesDuJour);
@@ -253,13 +259,20 @@ router.get('/dayGetDispos/:annee/:numMois/:jour/:section/:nbPers', async (req, r
       const timestamp_debut = disponibilite.timestamp_debut;
       const timestamp_fin = disponibilite.timestamp_fin;
 
-      const date_timestamp_debut = new Date(timestamp_debut);
+      const heure_debut = timestamp_debut.getHours();
+      const heure_fin = timestamp_fin.getHours();
+      heure_debut_string = heure_debut.toString() + ":00:00";
+      heure_debut_string =heure_fin.toString() + ":00:00";
+
+
+      /*const date_timestamp_debut = new Date(timestamp_debut);
+      console.log(date_timestamp_debut.toString());
       const date_timestamp_fin = new Date(timestamp_fin)
+      console.log(date_timestamp_debut.toString());*/
 
-      const heure_debut = date_timestamp_debut.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      const heure_fin = date_timestamp_fin.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      
 
-      const heures = [heure_debut, heure_fin];
+const heures = [heure_debut_string, heure_fin_string];
 
       if (!disposVidesDuJour.includes(heures)) {
         disposVidesDuJour.push(heures);
@@ -315,6 +328,10 @@ router.post('/reserver', async (req, res) =>{
     
     timestamp_propre = new Date(timestamp);
     console.log("timestamp_propre: " + timestamp_propre);
+
+    prenom_serv = generate_prenom_serveur();
+    id_reserv = generateNumeroRes();
+    
     await collectionSections.updateOne(
       {
         "type": section_propre,
@@ -323,10 +340,10 @@ router.post('/reserver', async (req, res) =>{
         $set: {
           //"tables.$[table].Disponibilites.$[disponibilite].Reservation": {
           "tables.$[table].Disponibilites.$[disponibilite].Reservation": {
-            "numero_res": generateNumeroRes(),
+            "numero_res": id_reserv,
             "nb_sieges": personnes_propre,
             "specification": allergies,
-            "prenom_serveur" : generate_prenom_serveur(),
+            "prenom_serveur" : prenom_serv,
             "Client": {
               "nom_client": nom,
               "prenom_client": prenom,
@@ -345,7 +362,7 @@ router.post('/reserver', async (req, res) =>{
         multi: false
       }).then((result)=> {
           console.log(result);
-          res.status(200).send('Ajout réussi')
+          res.status(200).send({"id_reserv":id_reserv});
         }).catch((err)=>{
           console.error("Erreur: "+ err);
           res.status(500).send('Erreur DB');
