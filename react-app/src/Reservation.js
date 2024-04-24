@@ -9,6 +9,11 @@ const Reservation = () => {
     const [reservations, setReservations] = useState(null);
     const [personnes, setPersonne] = useState('');
     const [section, setSection] = useState('');
+    const [nom, setNom] = useState('');
+    const [prenom, setPrenom] = useState('');
+    const [email, setEmail] = useState('');
+    const [tel, setTel] = useState('');
+    const [allergies, setAllergies] = useState('');
 
     const onChange = date => {
         setDate(date);
@@ -32,7 +37,7 @@ const Reservation = () => {
             console.log("Month: ", month);
             console.log("Day: ", day);
 
-            const url = `${CONFIG.API_URL_CLIENT}/dayGetDispos/${year}/${month}/${day}/${section}/${personnes}`;
+            const url = `${CONFIG.API_URL_CLIENT}/dayGetDispos2/${year}/${month}/${day}/${section}/${personnes}`;
 
             fetch(url)
                 .then(res => res.json())
@@ -47,14 +52,19 @@ const Reservation = () => {
 
 
     const handleReservation = (reservation) => {
-        const url = `${CONFIG.API_URL}/makeReservation`;
+        const url = `${CONFIG.API_URL_CLIENT}/reserver`;
         const requestData = {
-            numero_res: reservation.numero_res,
-            date: reservation.date,
-            heure_debut: reservation.heure_debut,
-            heure_fin: reservation.heure_fin,
+            prenom: prenom,
+            nom: nom,
+            email: email,
+            tel: tel,
+            date: date.toISOString(),
+            allergies: allergies,
+            heure_debut: reservation.slice(0,8),
+            heure_fin: reservation.slice(-8)
         };
-
+        console.log(prenom);
+        console.log(requestData);
         fetch(url, {
             method: 'POST',
             headers: {
@@ -86,14 +96,57 @@ const Reservation = () => {
                     <option value="6">6 personnes</option>
                     <option value="7">7 personnes</option>
                     <option value="8">8 personnes</option>
+                    <option value="" disabled>Pour 9+ personnes, appelez-nous! 😊</option>
                 </select>
                 <br />
                 <label htmlFor="section">Section:</label>
                 <br />
                 <select id="sections" onChange={HandleSection}>
-                    <option value="ter">térrasse</option>
+                    <option value="ter">Terrasse</option>
                     <option value="sm">Salle à Manger</option>
                 </select>
+        
+                <br />
+                <label htmlFor="nom">Nom: </label>
+                <input
+                  type="text"
+                  id="nom"
+                  value={nom}
+                  onChange={(e) => setNom(e.target.value)}
+                /> 
+                <br />
+                <label htmlFor="prenom">Prénom: </label>
+                <input
+                  type="text"
+                  id="prenom"
+                  value={prenom}
+                  onChange={(e) => setPrenom(e.target.value)}
+                /> 
+                <br />
+                <label htmlFor="email">Courriel: </label>
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                /> 
+                <br />
+                <label htmlFor="tel">Téléphone: </label>
+                <input
+                  type="tel"
+                  id="tel"
+                  value={tel}
+                  onChange={(e) => setTel(e.target.value)}
+                /> 
+                <br />
+                <label htmlFor="allergies">Si vous avez des allergies, merci de les indiquer ici: </label>
+                <input
+                  type="text"
+                  id="allergies"
+                  value={allergies}
+                  onChange={(e) => setAllergies(e.target.value)}
+                  rows={5}
+                /> 
             </div>
             <Calendar onChange={onChange} value={date} />
             <div></div>
@@ -111,8 +164,8 @@ const Reservation = () => {
                         {reservations.map((reservation) => (
                             <tr key={reservation.numero_res}>
                                 <td className='ReservationTD'>{date.toLocaleDateString()}</td>
-                                <td className='ReservationTD'>{reservation}</td>
-                                <td className='ReservationTD'>{reservation.heure_fin}</td>
+                                <td className='ReservationTD'>{reservation.slice(0,8)}</td>
+                                <td className='ReservationTD'>{reservation.slice(-8)}</td>
                                 <td className='ReservationTD'><button onClick={() => handleReservation(reservation)}>Réserver</button></td>
                             </tr>
                         ))}

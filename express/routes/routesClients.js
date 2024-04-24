@@ -171,9 +171,65 @@ router.post('/commentaires', async (req, res) => {
   }
 });
 
+router.post('/reserver', async (req, res) =>{
+
+  function generateNumeroRes() {
+      const timestamp = new Date().getTime();
+      const randomNumber = Math.floor(Math.random() * 1000000);
+      return `${timestamp-randomNumber}`;
+  }
+
+  try{
+    const {prenom,nom,email,tel,date,heure_debut,heure_fin,section} = req.body; 
+    const collectionSections = req.app.locals.db.collection("Sections");
+    console.log("prénom : " + prenom);
+
+    console.log("nom : " + nom);
+    console.log("email : " + email);
+    console.log("tel : " + tel);
+    console.log("date : " + date);
+    console.log("heure_debut : " + heure_debut);
+    console.log("heure_fin : " + heure_fin);
+    console.log("section : " + section);
+  
+
+  } catch(err){
+    console.error(err);
+    res.status(500).send('Erreur serveur interne');
+  }
+});
 
 
+router.post('/auth', async (req,res) =>{
+try {
+  const { username, password } = req.body;
+  console.log(req.body);
+  console.log(`Username:${username}`);  
+  console.log(`Password:${password}`);  
 
+  const user = await req.app.locals.db.collection("Serveur").findOne({
+  prenom_serveur : username,
+  password: password
+  });
+  console.log(user); 
+  if (user) {
+
+      // Return an "OK" response
+      res.status(200).send(user);
+  }
+  else {
+      // Return an error response
+      res.status(401).send('username ou mot de passe erroné');
+    }
+  }
+catch(err) {
+    // Handle any errors that occurred
+    console.error(err);
+    res.status(500).send('Erreur serveur interne');
+
+  }
+
+}) 
 
 
 module.exports = router
