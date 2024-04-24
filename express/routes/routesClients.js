@@ -283,6 +283,11 @@ router.post('/reserver', async (req, res) =>{
       return parseInt(`${timestamp-randomNumber}`.slice(-7));
   }
 
+  function generate_prenom_serveur() {
+    const names = ["Marco", "Elena", "Antonio", "Lucas", "Sophie", "Giovanni", "Luigi", "Maria", "Pietro"];
+    return names[Math.floor(Math.random() * names.length)];
+}
+
   try{
     const {prenom,nom,email,tel,date,heure_debut,heure_fin,section,personnes,allergies} = req.body; 
     const collectionSections = req.app.locals.db.collection("Sections");
@@ -297,17 +302,20 @@ router.post('/reserver', async (req, res) =>{
     console.log("section : " + section);
 
 
-    personnes_propre = parseInt(personnes);
+    personnes_propre = parseInt(personnes);/////
     if(section == "ter"){section_propre = "terrasse";};
     if(section == "sm"){section_propre = "salle à manger";};
-    timestamp = date.slice(0,11) + String(parseInt(heure_debut.slice(0,2))+12)+ heure_debut.slice(2,5) + ":00.000Z";
+    const nouvDate = new Date(`${date}T${heure_debut}`);
+    timestamp = nouvDate.toISOString();
+    //timestamp = date.slice(0,11) + String(parseInt(heure_debut.slice(0,2))+12)+ heure_debut.slice(2,5) + ":00.000Z";
     console.log("timestamp: " + timestamp);
   
     console.log("personnes_propre: " + personnes_propre);
     console.log("section_propre: " + section_propre);
+    
     timestamp_propre = new Date(timestamp);
     console.log("timestamp_propre: " + timestamp_propre);
-    collectionSections.updateOne(
+    await collectionSections.updateOne(
       {
         "type": section_propre,
       },
@@ -318,6 +326,7 @@ router.post('/reserver', async (req, res) =>{
             "numero_res": generateNumeroRes(),
             "nb_sieges": personnes_propre,
             "specification": allergies,
+            "prenom_serveur" : generate_prenom_serveur(),
             "Client": {
               "nom_client": nom,
               "prenom_client": prenom,
@@ -329,14 +338,9 @@ router.post('/reserver', async (req, res) =>{
       },
       {
         arrayFilters: [
-          {
-            "table.nb_pers_min": { "$gte": personnes_propre },
-            "table.nb_pers_max": { "$lte": personnes_propre }
-          },
-          {
-            "disponibilite.timestamp_debut": timestamp_propre 
-          }
-        ],
+          {"table.nb_pers_min": {$lte: personnes_propre}, "table.nb_pers_max": {$gte: personnes_propre}},
+          {"disponibilite.timestamp_debut": {$eq: timestamp_propre}}
+      ],
         upsert: true,
         multi: false
       }).then((result)=> {

@@ -673,7 +673,7 @@ function generateRandomExtEmail() {
 }
 
 function generateRandomServeur() {
-    const names = ["Marco", "Elena"];
+    const names = ["Marco", "Elena", "Antonio", "Lucas", "Sophie", "Giovanni", "Luigi", "Maria", "Pietro"];
     return names[Math.floor(Math.random() * names.length)];
 }
 
