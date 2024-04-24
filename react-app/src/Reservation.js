@@ -2,12 +2,11 @@ import Calendar from 'react-calendar';
 import { useEffect, useState } from "react";
 import 'react-calendar/dist/Calendar.css';
 import * as CONFIG from "./utils/config.js"
-import { Link } from 'react-router-dom';
 
 const Reservation = () => {
     const [date, setDate] = useState(new Date());
     const [reservations, setReservations] = useState(null);
-    const [personnes, setPersonne] = useState(1);
+    const [personnes, setPersonne] = useState(2);
     const [section, setSection] = useState('ter');
     const [nom, setNom] = useState('');
     const [prenom, setPrenom] = useState('');
@@ -79,6 +78,8 @@ const Reservation = () => {
             .then(response => response.json())
             .then(data => {
                 console.log('Success:', data);
+                alert('La reservation a ete envoye avec success');
+
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -93,7 +94,6 @@ const Reservation = () => {
                 <label htmlFor="nbPersonnes">Nombre de Personnes:</label>
                 <br />
                 <select id="nbPersonnes" onChange={HandlePersonne}>
-                    <option value="1">1 personne</option>
                     <option value="2">2 personnes</option>
                     <option value="3">3 personnes</option>
                     <option value="4">4 personnes</option>
