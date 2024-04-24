@@ -60,6 +60,8 @@ const Reservation = () => {
             tel: tel,
             date: date.toISOString(),
             allergies: allergies,
+            section: section,
+            personnes: personnes,
             heure_debut: reservation.slice(0,8),
             heure_fin: reservation.slice(-8)
         };

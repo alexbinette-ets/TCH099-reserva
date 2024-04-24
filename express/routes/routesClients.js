@@ -111,7 +111,7 @@ router.get('/dayGetDispos2/:annee/:numMois/:jour/:section/:nbPers', async (req, 
 
           if (disponibilite.timestamp_debut >= gte && disponibilite.timestamp_debut < lt) {
             if (Object.keys(disponibilite.Reservation).length === 0) {
-              console.log("disponibilite : " + disponibilite)
+              //console.log("disponibilite : " + disponibilite)
               disposToPushFinal.push(disponibilite)
             }
           }
@@ -280,11 +280,11 @@ router.post('/reserver', async (req, res) =>{
   function generateNumeroRes() {
       const timestamp = new Date().getTime();
       const randomNumber = Math.floor(Math.random() * 1000000);
-      return `${timestamp-randomNumber}`;
+      return parseInt(`${timestamp-randomNumber}`.slice(-7));
   }
 
   try{
-    const {prenom,nom,email,tel,date,heure_debut,heure_fin,section} = req.body; 
+    const {prenom,nom,email,tel,date,heure_debut,heure_fin,section,personnes,allergies} = req.body; 
     const collectionSections = req.app.locals.db.collection("Sections");
     console.log("prénom : " + prenom);
 
@@ -295,43 +295,95 @@ router.post('/reserver', async (req, res) =>{
     console.log("heure_debut : " + heure_debut);
     console.log("heure_fin : " + heure_fin);
     console.log("section : " + section);
-  
 
-  } catch(err){
-    console.error(err);
-    res.status(500).send('Erreur serveur interne');
-  }
+
+    personnes_propre = parseInt(personnes);
+    if(section == "ter"){section_propre = "terrasse";};
+    if(section == "sm"){section_propre = "salle à manger";};
+    timestamp = date.slice(0,11) + String(parseInt(heure_debut.slice(0,2))+12)+ heure_debut.slice(2,5) + ":00.000Z";
+    console.log("timestamp: " + timestamp);
+  
+    console.log("personnes_propre: " + personnes_propre);
+    console.log("section_propre: " + section_propre);
+    timestamp_propre = new Date(timestamp);
+    console.log("timestamp_propre: " + timestamp_propre);
+    collectionSections.updateOne(
+      {
+        "type": section_propre,
+      },
+      {
+        $set: {
+          //"tables.$[table].Disponibilites.$[disponibilite].Reservation": {
+          "tables.$[table].Disponibilites.$[disponibilite].Reservation": {
+            "numero_res": generateNumeroRes(),
+            "nb_sieges": personnes_propre,
+            "specification": allergies,
+            "Client": {
+              "nom_client": nom,
+              "prenom_client": prenom,
+              "telephone": tel,
+              "email": email
+            }
+          }
+        }
+      },
+      {
+        arrayFilters: [
+          {
+            "table.nb_pers_min": { "$gte": personnes_propre },
+            "table.nb_pers_max": { "$lte": personnes_propre }
+          },
+          {
+            "disponibilite.timestamp_debut": timestamp_propre 
+          }
+        ],
+        upsert: true,
+        multi: false
+      }).then((result)=> {
+          console.log(result);
+          res.status(200).send('Ajout réussi')
+        }).catch((err)=>{
+          console.error("Erreur: "+ err);
+          res.status(500).send('Erreur DB');
+
+      })
+      
+
+} catch(err){
+  console.error(err);
+  res.status(500).send('Erreur serveur interne');
+}
 });
 
 
 router.post('/auth', async (req,res) =>{
 try {
-  const { username, password } = req.body;
-  console.log(req.body);
-  console.log(`Username:${username}`);  
-  console.log(`Password:${password}`);  
+const { username, password } = req.body;
+console.log(req.body);
+console.log(`Username:${username}`);  
+console.log(`Password:${password}`);  
 
-  const user = await req.app.locals.db.collection("Serveur").findOne({
-  prenom_serveur : username,
-  password: password
-  });
-  console.log(user); 
-  if (user) {
+const user = await req.app.locals.db.collection("Serveur").findOne({
+prenom_serveur : username,
+password: password
+});
+console.log(user); 
+if (user) {
 
-      // Return an "OK" response
-      res.status(200).send(user);
+    // Return an "OK" response
+    res.status(200).send(user);
+}
+else {
+    // Return an error response
+    res.status(401).send('username ou mot de passe erroné');
   }
-  else {
-      // Return an error response
-      res.status(401).send('username ou mot de passe erroné');
-    }
-  }
+}
 catch(err) {
-    // Handle any errors that occurred
-    console.error(err);
-    res.status(500).send('Erreur serveur interne');
+  // Handle any errors that occurred
+  console.error(err);
+  res.status(500).send('Erreur serveur interne');
 
-  }
+}
 }) 
 
 
