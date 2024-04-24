@@ -2,10 +2,166 @@ const express = require('express');
 const router = express.Router();
 const { ObjectId } = require('mongodb');
 
-//?ligne qui donne erreur const fetch = require('node-fetch');
+
+//----------------------------------------------------------------
+//
+//GET test
+router.get('/test', (req, res) => {
+  res.json({ mssg: 'Route de test fonctionnelleAYAY !' });
+});
+//----------------------------------------------------------------
+//
 
 
-//GET liste reservation de la journee
+
+
+
+
+
+
+//----------------------------------------------------------------
+//
+router.post('/auth', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    console.log(req.body);
+    console.log(`Username:${username}`);
+    console.log(`Password:${password}`);
+
+    const user = await req.app.locals.db.collection("Serveur").findOne({
+      prenom_serveur: username,
+      password: password
+    });
+    console.log(user);
+    if (user) {
+
+      // Return an "OK" response
+      res.status(200).send(user);
+    }
+    else {
+      // Return an error response
+      res.status(401).send('username ou mot de passe erroné');
+    }
+  }
+  catch (err) {
+    // Handle any errors that occurred
+    console.error(err);
+    res.status(500).send('Erreur serveur interne');
+
+  }
+
+})
+//----------------------------------------------------------------
+//
+
+
+
+
+
+
+
+
+
+//----------------------------------------------------------------
+//
+//GET DAY RESERV 2.0!
+router.get('/dayreservations2/:annee/:numMois/:jour', async (req, res) => {
+  const annee = parseInt(req.params.annee);
+  const numMois = parseInt(req.params.numMois);
+  const jour = parseInt(req.params.jour);
+
+  //Sassurer que par exemple 2024/3/4 deviennet 2024-03-04
+  const dateString = `${annee.toString()}-${numMois.toString().padStart(2, '0')}-${jour.toString().padStart(2, '0')}`;
+  const date = new Date(dateString);
+  console.log(date);
+
+  //si je le met plus loin ca veut pas
+  const reservationsDuJour = [];
+  try {
+
+    const gte = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    const lt = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
+
+    const collectionSections = req.app.locals.db.collection("Sections");
+    const sections = await collectionSections.find({}).toArray();
+
+    sections.forEach(section => {
+
+      section.tables.forEach(table => {
+
+
+        table.Disponibilites.forEach(disponibilite => {
+
+
+          if (disponibilite.timestamp_debut >= gte && disponibilite.timestamp_debut < lt) {
+            if (Object.keys(disponibilite.Reservation).length > 0) {
+
+
+              const numero_res = disponibilite.Reservation.numero_res;
+              console.log(numero_res);
+              const numero_table = table.numero_table;
+              console.log(numero_table);
+              const nb_sieges = disponibilite.Reservation.nb_sieges;
+              console.log(nb_sieges);
+              const specification = disponibilite.Reservation.specification;
+              console.log(specification);
+              const nom_section = section.nom;
+              console.log(nom_section);
+              const type_section = section.type;
+              console.log(type_section);
+              let serveursDetails = {};
+              serveursDetails = {
+                prenom_serveur: disponibilite.Reservation.prenom_serveur,
+              };
+              console.log(serveursDetails.prenom_serveur);
+              const prenom_client = disponibilite.Reservation.Client.prenom_client;
+              console.log(prenom_client);
+              const nom_client = disponibilite.Reservation.Client.nom_client;
+              console.log(nom_client);
+              const telephone = disponibilite.Reservation.Client.telephone;
+              console.log(telephone);
+              reservationsDuJour.push({
+                date: new Date(disponibilite.timestamp_debut).toLocaleDateString(),
+                heure_debut: new Date(disponibilite.timestamp_debut).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                heure_fin: new Date(disponibilite.timestamp_fin).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                numero_res,
+                numero_table,
+                nb_sieges,
+                specification,
+                nom_section,
+                type_section,
+                serveursDetails,
+                prenom_client,
+                nom_client,
+                telephone,
+              });
+            }
+
+          }
+        })
+      })
+    });
+  }
+
+  catch (error) {
+    console.error("Erreur lors de la requete!:", error);
+    res.status(500).json({ error: "Erreur lors de la requete!" })
+  };
+  res.json(reservationsDuJour);
+}
+);
+//----------------------------------------------------------------
+//
+
+
+
+
+
+
+
+//----------------------------------------------------------------
+//
+//OLD (POUR VOIR DIFFICULTES) GET liste reservation de la journee
 //garder pour présentation
 router.get('/dayreservations/:annee/:numMois/:jour', async (req, res) => {
   const annee = parseInt(req.params.annee);
@@ -68,40 +224,37 @@ router.get('/dayreservations/:annee/:numMois/:jour', async (req, res) => {
       }
       const { numero_res, nb_sieges, specification } = reservationDetails;
 
-//===============================================
-//===============================================
-//===============================================
-//===============================================
-let tableCorrespondante = null;
+    
+      let tableCorrespondante = null;
 
-const sections = await collectionSection.find({}).toArray();
-for (const section of sections) {
-  const tables = section.tables;
-  if (!tables) continue;
-      for (const table of tables) {
-        const dispoIdFields = Object.keys(table).filter(field => field.startsWith('dispo') && field.endsWith('_id'));
-        //console.log(dispoIdFields);
-        for (const numDispoId of dispoIdFields) {
-          const valeurDispoId = table[numDispoId];
-          const disponibiliteIdString = disponibilite._id.toString();
-          const valeurDispoIdString = valeurDispoId.toString();
-          if (valeurDispoIdString === disponibiliteIdString) {
-            tableCorrespondante = table;
-            if (section) {
-              sectionDetails = {
-                nom: section.nom,
-                type: section.type,
-              };
+      const sections = await collectionSection.find({}).toArray();
+      for (const section of sections) {
+        const tables = section.tables;
+        if (!tables) continue;
+        for (const table of tables) {
+          const dispoIdFields = Object.keys(table).filter(field => field.startsWith('dispo') && field.endsWith('_id'));
+          //console.log(dispoIdFields);
+          for (const numDispoId of dispoIdFields) {
+            const valeurDispoId = table[numDispoId];
+            const disponibiliteIdString = disponibilite._id.toString();
+            const valeurDispoIdString = valeurDispoId.toString();
+            if (valeurDispoIdString === disponibiliteIdString) {
+              tableCorrespondante = table;
+              if (section) {
+                sectionDetails = {
+                  nom: section.nom,
+                  type: section.type,
+                };
+              }
+              else {
+                //console.log("ERREUR : Aucune section trouvée pour cette disponibilité");
+                continue;
+              }
+              break;
             }
-            else {
-              //console.log("ERREUR : Aucune section trouvée pour cette disponibilité");
-              continue;
-            }
-            break;
           }
         }
       }
-    }
       const { nom: nom_section, type: type_section } = sectionDetails;
       const table = tableCorrespondante;
       //console.log("table correspondante: " + tableCorrespondante);
@@ -116,10 +269,7 @@ for (const section of sections) {
         continue;
       }
       const { numero_table } = tableDetails;
-//===============================================
-//===============================================
-//===============================================
-//===============================================
+      
 
       //Récupération des infos du serveurs pour afficher + highlight, manque gestion cas erreurs NULL
       const serveurs = await collectionServeur.find({}).toArray();
@@ -134,13 +284,13 @@ for (const section of sections) {
           };
           break;
         }
-        else {  
+        else {
           //console.log("Ce serveur n'est pas dans la réservation : " + serveur);
           continue;
         }
       }
       if (!serveursDetails) {
-        console.log("ERREUR : Aucune serveur trouvé pour cette reservation");        
+        console.log("ERREUR : Aucune serveur trouvé pour cette reservation");
       }
 
       const client = await collectionClient.findOne({ _id: reservation.client_id });
@@ -177,159 +327,22 @@ for (const section of sections) {
     }
 
   }
-  
+
   catch (error) {
     console.error("Erreur lors de la requete!:", error);
     res.status(500).json({ error: "Erreur lors de la requete!" })
   };
   res.json(reservationsDuJour);
 });
-
-//GET nom serveur pour affichage calendrier
-router.get('/nomEmploye/:id', async (req, res) => {
-
-  const collectionServeur = req.app.locals.db.collection("Serveur");
-  const serveur_id = req.params.id;
-  try {
-    const serveur = await collectionServeur.findOne({_id: new ObjectId(serveur_id)});
-    if (serveur) {
-      res.json(serveur.prenom_serveur);
-    } else {
-      res.status(404).json({ message: "Serveur non trouvé" });
-    }
-  }
-  catch (error) {
-    console.error("Erreur lors de la requete!:", error);
-    res.status(500).json({ error: "Erreur lors de la requete!" })
-  }
-});
-
-
-//GET test
-router.get('/test', (req, res) => {
-  res.json({ mssg: 'Route de test fonctionnelleAYAY !' });
-});
-
-router.post('/auth', async (req,res) =>{
-try {
-  const { username, password } = req.body;
-  console.log(req.body);
-  console.log(`Username:${username}`);  
-  console.log(`Password:${password}`);  
-
-  const user = await req.app.locals.db.collection("Serveur").findOne({
-  prenom_serveur : username,
-  password: password
-  });
-  console.log(user); 
-  if (user) {
-
-      // Return an "OK" response
-      res.status(200).send(user);
-  }
-  else {
-      // Return an error response
-      res.status(401).send('username ou mot de passe erroné');
-    }
-  }
-catch(err) {
-    // Handle any errors that occurred
-    console.error(err);
-    res.status(500).send('Erreur serveur interne');
-
-  }
-
-}) 
+//----------------------------------------------------------------
+//
 
 
 
 
 
-//GET DAY RESERV 2.0!
-router.get('/dayreservations2/:annee/:numMois/:jour', async (req, res) => {
-  const annee = parseInt(req.params.annee);
-  const numMois = parseInt(req.params.numMois);
-  const jour = parseInt(req.params.jour);
 
-  //Sassurer que par exemple 2024/3/4 deviennet 2024-03-04
-  const dateString = `${annee.toString()}-${numMois.toString().padStart(2, '0')}-${jour.toString().padStart(2, '0')}`;
-  const date = new Date(dateString);
-  console.log(date);
 
-  //si je le met plus loin ca veut pas
-  const reservationsDuJour = [];
-  try {
-    
-    const gte = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    const lt = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
-    
-    const collectionSections = req.app.locals.db.collection("Sections");
-    const sections = await collectionSections.find({}).toArray();
 
-    sections.forEach(section => {
-       
-        section.tables.forEach(table => {
-               
-            
-            table.Disponibilites.forEach(disponibilite => {
-              
-              
-              if (disponibilite.timestamp_debut >= gte && disponibilite.timestamp_debut < lt)
-              {
-                if (Object.keys(disponibilite.Reservation).length > 0) {
-                  
-
-                  const numero_res = disponibilite.Reservation.numero_res;
-                  console.log(numero_res);
-                  const numero_table = table.numero_table;
-                  console.log(numero_table);
-                  const nb_sieges = disponibilite.Reservation.nb_sieges;
-                  console.log(nb_sieges);
-                  const specification = disponibilite.Reservation.specification;
-                  console.log(specification);
-                  const nom_section = section.nom;
-                  console.log(nom_section);
-                  const type_section = section.type;
-                  console.log(type_section);
-                  let serveursDetails = {};
-                  serveursDetails = {
-                    prenom_serveur: disponibilite.Reservation.prenom_serveur,
-                  };
-                  console.log(serveursDetails.prenom_serveur);
-                  const prenom_client = disponibilite.Reservation.Client.prenom_client;
-                  console.log(prenom_client);
-                  const nom_client = disponibilite.Reservation.Client.nom_client;
-                  console.log(nom_client);
-                  const telephone = disponibilite.Reservation.Client.telephone;
-                  console.log(telephone);
-                  reservationsDuJour.push({
-                    date: new Date(disponibilite.timestamp_debut).toLocaleDateString(),
-                    heure_debut: new Date(disponibilite.timestamp_debut).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                    heure_fin: new Date(disponibilite.timestamp_fin).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                    numero_res,
-                    numero_table,
-                    nb_sieges,
-                    specification,
-                    nom_section,
-                    type_section,
-                    serveursDetails,
-                    prenom_client,
-                    nom_client,
-                    telephone,
-                  });
-                }
-
-                }
-              })})});}
-                
-              catch (error) {
-                console.error("Erreur lors de la requete!:", error);
-                res.status(500).json({ error: "Erreur lors de la requete!" })
-              };
-              res.json(reservationsDuJour);
-            }
-          );
-
-            
 
 module.exports = router
