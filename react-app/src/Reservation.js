@@ -15,6 +15,8 @@ const Reservation = () => {
     const [tel, setTel] = useState('');
     const [allergies, setAllergies] = useState('');
 
+    const DatetoString = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+
     const onChange = date => {
         setDate(date);
     }
@@ -58,14 +60,13 @@ const Reservation = () => {
             nom: nom,
             email: email,
             tel: tel,
-            date: date.toISOString(),
+            date: DatetoString,
             allergies: allergies,
             section: section,
             personnes: personnes,
-            heure_debut: reservation.slice(0,8),
-            heure_fin: reservation.slice(-8)
+            heure_debut: reservation.slice(0,8)[0],
+            heure_fin: reservation.slice(-8)[1]
         };
-        console.log(prenom);
         console.log(requestData);
         fetch(url, {
             method: 'POST',
@@ -165,9 +166,9 @@ const Reservation = () => {
                     <tbody className='ReservationBody'>
                         {reservations.map((reservation) => (
                             <tr key={reservation.numero_res}>
-                                <td className='ReservationTD'>{date.toLocaleDateString()}</td>
-                                <td className='ReservationTD'>{reservation.slice(0,8)}</td>
-                                <td className='ReservationTD'>{reservation.slice(-8)}</td>
+                                <td className='ReservationTD'>{DatetoString}</td>
+                                <td className='ReservationTD'>{reservation.slice(0,8)[0]}</td>
+                                <td className='ReservationTD'>{reservation.slice(-8)[1]}</td>
                                 <td className='ReservationTD'><button onClick={() => handleReservation(reservation)}>Réserver</button></td>
                             </tr>
                         ))}
