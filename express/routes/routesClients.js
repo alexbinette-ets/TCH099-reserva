@@ -122,17 +122,23 @@ router.get('/dayGetDispos2/:annee/:numMois/:jour/:section/:nbPers', async (req, 
       const timestamp_debut = disponibilite.timestamp_debut;
       const timestamp_fin = disponibilite.timestamp_fin;
 
-      const date_timestamp_debut = new Date(timestamp_debut);
+      const heure_debut = timestamp_debut.getHours();
+      const heure_fin = timestamp_fin.getHours();
+      const heure_debut_string = heure_debut.toString() + ":00:00";
+      const heure_fin_string =heure_fin.toString() + ":00:00";
+
+
+      /*const date_timestamp_debut = new Date(timestamp_debut);
+      console.log(date_timestamp_debut.toString());
       const date_timestamp_fin = new Date(timestamp_fin)
+      console.log(date_timestamp_debut.toString());*/
 
-      const heure_debut = date_timestamp_debut.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      const heure_fin = date_timestamp_fin.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      
 
+const heures = [heure_debut_string, heure_fin_string];
 
-      const plage_horaire = `${heure_debut}-${heure_fin}`;
-
-      if (!disposVidesDuJour.includes(plage_horaire)) {
-        disposVidesDuJour.push(plage_horaire);
+      if (!disposVidesDuJour.includes(heures)) {
+        disposVidesDuJour.push(heures);
       }
     }
     res.json(disposVidesDuJour);
@@ -253,13 +259,20 @@ router.get('/dayGetDispos/:annee/:numMois/:jour/:section/:nbPers', async (req, r
       const timestamp_debut = disponibilite.timestamp_debut;
       const timestamp_fin = disponibilite.timestamp_fin;
 
-      const date_timestamp_debut = new Date(timestamp_debut);
+      const heure_debut = timestamp_debut.getHours();
+      const heure_fin = timestamp_fin.getHours();
+      heure_debut_string = heure_debut.toString() + ":00:00";
+      heure_debut_string =heure_fin.toString() + ":00:00";
+
+
+      /*const date_timestamp_debut = new Date(timestamp_debut);
+      console.log(date_timestamp_debut.toString());
       const date_timestamp_fin = new Date(timestamp_fin)
+      console.log(date_timestamp_debut.toString());*/
 
-      const heure_debut = date_timestamp_debut.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      const heure_fin = date_timestamp_fin.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      
 
-      const heures = [heure_debut, heure_fin];
+const heures = [heure_debut_string, heure_fin_string];
 
       if (!disposVidesDuJour.includes(heures)) {
         disposVidesDuJour.push(heures);
