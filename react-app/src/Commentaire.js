@@ -6,11 +6,16 @@ const Commentaire = () => {
     const [nouveau, setNouveau] = useState('')
     const [commentaires, setCommentaire] = useState([]);
     const [isPosting, setIsPosting] = useState(false);
+    const [cote, setCote] = useState(5);
+
+    const HandleCote = (event) => {
+        setCote(event.target.value);
+    };
 
 
     const fetchCommentaires = async () => {
         try {
-            const url = `${CONFIG.API_URL_CLIENT}/commentaire/`;
+            const url = `${CONFIG.API_URL_CLIENT}/commentaires/`;
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error("Failed to fetch data");
@@ -29,18 +34,19 @@ const Commentaire = () => {
     const handleEnvoiCommentaire = async () => {
         try {
             setIsPosting(true);
-            const url = `${CONFIG.API_URL_CLIENT}/commentaire/`;
+            const url = `${CONFIG.API_URL_CLIENT}/postCommentaire/`;
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ commentaire: nouveau }),
+                body: JSON.stringify({ commentaire: nouveau, cote: cote }),
             });
             if (!response.ok) {
                 throw new Error("Failed to post data");
             }
             setNouveau('');
+            setCote(5);
             setIsPosting(false);
             fetchCommentaires();
         } catch (error) {
@@ -61,6 +67,15 @@ const Commentaire = () => {
                     value={nouveau}
                     onChange={(e) => setNouveau(e.target.value)}
                 />
+                Votre cote:
+                <select id="cote" onChange={HandleCote}>
+                    <option value="5">5/5</option>
+                    <option value="4">4/5</option>
+                    <option value="3">3/5</option>
+                    <option value="2">2/5</option>
+                    <option value="1">1/5</option>
+
+                </select>
             </div>
             <button onClick={handleEnvoiCommentaire} disabled={isPosting}>
                 {isPosting ? 'En envoi' : 'Envoyer'}
@@ -69,8 +84,9 @@ const Commentaire = () => {
             <div className="CommentaireList">
                 {commentaires.map((commentaire, index) => (
                     <div key={index}>
-                        {commentaire}
+                        ({commentaire.cote}/5) {commentaire.commentaire}
                     </div>
+
                 ))}
             </div>
         </div>

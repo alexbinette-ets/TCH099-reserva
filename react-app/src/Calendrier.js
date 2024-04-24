@@ -27,7 +27,7 @@ const Calendrier = ({ username, onLogout }) => {
       console.log("Month: ", month);
       console.log("Day: ", day);
 
-      const url = `${CONFIG.API_URL}/dayreservations/${year}/${month}/${day}`;
+      const url = `${CONFIG.API_URL}/dayreservations2/${year}/${month}/${day}`;
 
       fetch(url)
         .then(res => res.json())
