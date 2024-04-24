@@ -49,13 +49,14 @@ const Calendrier = ({ username, onLogout }) => {
   }, [date]);
 
   const handleDelete = (reservationId) => {
-    const url = `${CONFIG.API_URL}/deleteReservation/${reservationId}`;
+    const url = `${CONFIG.API_URL}/supprimer-reservation/`;
 
     fetch(url, {
-        method: 'DELETE',
+        method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-        },
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ numero_res: reservationId}),
     })
     .then(response => {
         if (response.ok) {
