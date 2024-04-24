@@ -243,6 +243,8 @@ catch(err) {
 
 
 
+
+
 //GET DAY RESERV 2.0!
 router.get('/dayreservations2/:annee/:numMois/:jour', async (req, res) => {
   const annee = parseInt(req.params.annee);
@@ -264,18 +266,17 @@ router.get('/dayreservations2/:annee/:numMois/:jour', async (req, res) => {
     const collectionSections = req.app.locals.db.collection("Sections");
     const sections = await collectionSections.find({}).toArray();
 
-    // Parcourez chaque document de la collection "sections"
     sections.forEach(section => {
-        // Accédez à chaque table dans la section
+       
         section.tables.forEach(table => {
                
-            // Accédez aux disponibilités de chaque table
+            
             table.Disponibilites.forEach(disponibilite => {
               
               
               if (disponibilite.timestamp_debut >= gte && disponibilite.timestamp_debut < lt)
               {
-                if (disponibilite.Reservation && Object.keys(disponibilite.Reservation).length > 0) {
+                if (Object.keys(disponibilite.Reservation).length > 0) {
                   
 
                   const numero_res = disponibilite.Reservation.numero_res;
@@ -325,5 +326,10 @@ router.get('/dayreservations2/:annee/:numMois/:jour', async (req, res) => {
                 console.error("Erreur lors de la requete!:", error);
                 res.status(500).json({ error: "Erreur lors de la requete!" })
               };
-            });
+              res.json(reservationsDuJour);
+            }
+          );
+
+            
+
 module.exports = router

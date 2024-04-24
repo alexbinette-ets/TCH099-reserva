@@ -174,6 +174,74 @@ router.post('/commentaires', async (req, res) => {
 
 
 
+//GET DISPOS 2.0
+//GET DISPO COTE CLIENT
+router.get('/dayGetDispos2/:annee/:numMois/:jour/:section/:nbPers', async (req, res) => {
+  const annee = parseInt(req.params.annee);
+  const numMois = parseInt(req.params.numMois);
+  const jour = parseInt(req.params.jour);
+  const section = (req.params.section);
+  const nbPersonnes = parseInt(req.params.nbPers);
+  //faire un parse du bon string de la section ou id? mettre SM ou TER ! DONALD
+  const dateString = `${annee.toString()}-${numMois.toString().padStart(2, '0')}-${jour.toString().padStart(2, '0')}`;
+  const date = new Date(dateString);
+  //voir si rentre dans route ici.. 
+  console.log(date);
+  const gte = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  const lt = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
+
+  //Tableau final qu'on va afficher
+  let disposVidesDuJour = [];
+  let disposToPushFinal = [];
+  try {
+    
+    
+    const collectionSections = req.app.locals.db.collection("Sections");
+    const sections = await collectionSections.find({}).toArray();
+
+    sections.forEach(section => {
+       
+        section.tables.forEach(table => {
+               
+            
+            table.Disponibilites.forEach(disponibilite => {
+              
+              
+              if (disponibilite.timestamp_debut >= gte && disponibilite.timestamp_debut < lt)
+              {
+                if (Object.keys(disponibilite.Reservation).length === 0) {
+                  console.log("disponibilite : " + disponibilite )
+                  disposToPushFinal.push(disponibilite)
+                }
+              }})})})
+              for (const disponibilite of disposToPushFinal) {
+                const timestamp_debut = disponibilite.timestamp_debut; 
+                const timestamp_fin = disponibilite.timestamp_fin;
+        
+                const date_timestamp_debut = new Date(timestamp_debut);
+                const date_timestamp_fin = new Date(timestamp_fin)
+        
+                const heure_debut = date_timestamp_debut.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                const heure_fin = date_timestamp_fin.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        
+                
+                const plage_horaire = `${heure_debut}-${heure_fin}`;
+
+                if (!disposVidesDuJour.includes(plage_horaire)) {
+                    disposVidesDuJour.push(plage_horaire);
+                }
+            }
+            res.json(disposVidesDuJour);
+            }
+            catch (error) {
+      console.error("Erreur lors de la requete!:", error);
+      res.status(500).json({ error: "Erreur lors de la requete!" })
+    };
+}
+);
+
+
+
 
 
 module.exports = router

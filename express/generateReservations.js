@@ -627,9 +627,14 @@ const dispos = [{
   }]
 
 
-function generateRandomName() {
-    const names = ["Alice", "Bob", "Charlie", "David", "Emma", "Frank", "Grace", "Henry", "Ivy", "Jack", "Kate", "Liam", "Mia", "Noah", "Olivia", "Parker", "Quinn", "Ryan", "Sophia", "Thomas", "Uma", "Vincent", "Willow", "Xander", "Yara", "Zane"];
-    return names[Math.floor(Math.random() * names.length)];
+function generateRandomNom() {
+    const nom = ["Alice", "Bob", "Charlie", "David", "Emma", "Frank", "Grace", "Henry", "Ivy", "Jack", "Kate", "Liam", "Mia", "Noah", "Olivia", "Parker", "Quinn", "Ryan", "Sophia", "Thomas", "Uma", "Vincent", "Willow", "Xander", "Yara", "Zane"];
+    return nom[Math.floor(Math.random() * nom.length)];
+}
+
+function generateRandomNomFamille() {
+    const nomFam = ["Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson", "Moore", "Taylor", "Anderson", "Thomas", "Jackson", "White", "Harris", "Martin", "Thompson", "Garcia", "Martinez", "Robinson", "Clark", "Rodriguez", "Lewis", "Lee", "Walker", "Hall", "Allen", "Young", "Hernandez", "King", "Wright", "Lopez", "Hill", "Scott", "Green", "Adams", "Baker", "Gonzalez", "Nelson", "Carter", "Mitchell", "Perez", "Roberts", "Turner", "Phillips", "Campbell", "Parker", "Evans"];
+    return nomFam[Math.floor(Math.random() * nomFam.length)];
 }
 
 function generateRandomPhoneNumber() {
@@ -642,7 +647,18 @@ function generateRandomSpecification() {
     return specifications[Math.floor(Math.random() * specifications.length)];
 }
 
+function generateReservationNumber() {
 
+    const randomNumber = Math.floor(Math.random() * 999) + 1;
+    const start = new Date('1000-01-01').getTime();
+    const end = new Date().getTime();
+    const randomTimestamp = Math.floor(Math.random() * (end - start) + start);
+    const randomDate = new Date(randomTimestamp);
+    const annee = randomDate.getFullYear().toString();
+    const nombreDeAnnee = annee.slice(-4);
+    const reservationNumber = randomNumber + nombreDeAnnee;
+    return parseInt(reservationNumber);
+}
 
 
 function generateRandomExtEmail() {
@@ -657,7 +673,7 @@ function generateRandomExtEmail() {
 }
 
 function generateRandomServeur() {
-    const names = ["Antonio", "Lucas"];
+    const names = ["Marco", "Elena"];
     return names[Math.floor(Math.random() * names.length)];
 }
 
@@ -667,21 +683,21 @@ let reservationCount = 0;
 dispos.forEach(dispo => {
 
     
-    const randomName = generateRandomName();
-    const randomPhoneNumber = generateRandomPhoneNumber();
-    const randomSpecification = generateRandomSpecification();
+    const randomNom = generateRandomNom();
+    /*const randomPhoneNumber = generateRandomPhoneNumber();
+    const randomSpecification = generateRandomSpecification();*/
     let reservation;
     if (reservationCount % 3 === 0) {
     reservation = {
-        //MANQUE NUM RES, FAIT DIRECTEMENT SUR MONGO
+        "numero_res": generateReservationNumber(),
         "nb_sieges": Math.floor(Math.random() * 3) + 4,
-        "specification": randomSpecification,
+        "specification": generateRandomSpecification(),
         "prenom_serveur": generateRandomServeur(),
             "Client": {
-                "nom_client": randomName,
-                "prenom_client": randomName,
-                "telephone": randomPhoneNumber,
-                "email": randomName.toLowerCase() + generateRandomExtEmail() // 
+                "nom_client": randomNom,
+                "prenom_client": generateRandomNomFamille(),
+                "telephone": generateRandomPhoneNumber(),
+                "email": randomNom.toLowerCase() + generateRandomExtEmail() // 
             }
     };
 }
